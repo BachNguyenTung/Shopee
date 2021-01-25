@@ -1,22 +1,37 @@
 /* shopee additional customize*/
-:root{
-    --while-color: #fff;
-    --black-color: #000;
-    --text-color: #333;
+:root {
+  --while-color: #fff;
+  --black-color: #000;
+  --text-color: #333;
 }
 
 /* shopee customize responsive */
-.grid{
-    width: 1200px;
-    max-width: 100%;
-    margin: 0 auto;
+.grid {
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-.grid__fullwidth{
-    width: 100%;
+.grid__fullwidth {
+  width: 100%;
 }
 
-.grid__row{
-    display:flex;
-    flex-wrap: wrap;
+.grid__row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Common */
+.header__nav-item--border-lr {
+  border-left: 2px solid hsla(0, 0%, 100%, 0.22);
+  border-right: 2px solid hsla(0, 0%, 100%, 0.22);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

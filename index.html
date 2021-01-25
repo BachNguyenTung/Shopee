@@ -1,14 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./assets/css/reset.css">
-    <link rel="stylesheet" href="./assets/css/base.css">
-    <link rel="stylesheet" href="./assets/css/main.css">
-</head>
-<body>
-    <h2>Hello World</h2>
-</body>
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="grid">
+          <nav class="header__nav">
+            <ul class="header__nav-list">
+              <li class="header__nav-item">
+                <a href="#" class="header__nav-item-link">Kênh Người Bán</a>
+              </li>
+              <li class="header__nav-item  header__nav-item--qr header__nav-item--border-lr">
+                <a href="#" class="header__nav-item-link">Tải ứng dụng</a>
+                <div class="header__nav-qr">
+                  <img
+                    src="./assets/img/qr-code-home.png"
+                    alt="qr-code"
+                    class="header__nav-qr-img"
+                  />
+                  <a href="#" class="header__nav-app">
+                    <img
+                      src="./assets/img/app-shopee.png"
+                      alt="qr-code"
+                      class="header__nav-app-img"
+                    />
+                    <img
+                      src="./assets/img/gg-shopee.png"
+                      alt="qr-code"
+                      class="header__nav-app-img"
+                    />
+                    <img
+                      src="./assets/img/app-gal-shopee.png"
+                      alt="qr-code"
+                      class="header__nav-app-img"
+                    />
+                  </a>
+                </div>
+              </li>
+
+              <li class="header__nav-item">
+                Kết nối
+                <a href="#" class="header__nav-item-link"
+                  ><i class="bi bi-facebook"></i
+                ></a>
+                <a href="#" class="header__nav-item-link"
+                  ><i class="bi bi-instagram"></i
+                ></a>
+              </li>
+            </ul>
+            <ul class="header__nav-list">
+              <li class="header__nav-item-right">
+                <a href="#" class="header__nav-item-link"
+                  ><i class="bi bi-bell"></i>Thông Báo</a
+                >
+              </li>
+              <li class="header__nav-item-right">
+                <a href="#" class="header__nav-item-link"
+                  ><i class="bi bi-question-circle"></i>Trợ Giúp</a
+                >
+              </li>
+              <li class="header__nav-item-right">
+                <a href="#" class="header__nav-item-link"
+                  ><i class="bi bi-question-circle"></i>User</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <div class="container"></div>
+      <footer class="footer"></footer>
+    </div>
+  </body>
 </html>
