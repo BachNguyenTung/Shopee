@@ -54,7 +54,7 @@ header {
   display: flex;
 }
 
-.header__nav-item-right--notify:hover .header__arrow-notify {
+.header__nav-item-right--notify:hover .header__notify-arrow {
   display: block;
 }
 
@@ -87,7 +87,7 @@ header {
 .header__nav-qr::before {
   content: "";
   position: absolute;
-  top: -7%;
+  top: -4%;
   width: 100%;
   height: 1.6rem;
   display: flex;
@@ -109,13 +109,15 @@ header {
   height: 1.4rem;
 }
 
-.header__arrow-notify {
+.header__notify-arrow {
   position: absolute;
   right: 4rem;
+  top: -1.5rem;
   display: none;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
   border-bottom: 15px solid white;
+  z-index: 3;
 }
 
 .header__notify {
@@ -127,6 +129,20 @@ header {
   display: none;
   flex-direction: column;
   padding: 0 0.6rem;
+  border-radius: 2px;
+  border-top: 0px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 0.0625rem 3.125rem 0px;
+  z-index: 3;
+  animation: headerNotifyGrowing ease-in 0.15s;
+}
+
+@keyframes headerNotifyGrowing {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 .header__notify::before {
@@ -138,12 +154,13 @@ header {
   right: 0;
   display: flex;
   padding: 0 0.6rem;
+  z-index: 3;
 }
 
 .header__notify-title {
   padding: 1.3rem 0;
   opacity: 0.25;
-  font-size:1.4rem;
+  font-size: 1.4rem;
 }
 
 .header__notify-link {
@@ -160,7 +177,7 @@ header {
 
 .header__notify-user:hover,
 .header__notify-news:hover {
-  background-color: #ccc;
+  background-color: #f8f8f8;
   cursor: pointer;
 }
 
@@ -180,10 +197,75 @@ header {
   display: inline;
 }
 
-.header__notify-all {
+.header__notify-showAll {
   display: block;
   padding: 1.3rem 0;
   text-align: center;
   justify-self: center;
   text-decoration: none;
+  color: inherit;
+}
+
+.header__notify-showAll:hover {
+  background-color: #f8f8f8;
+}
+
+.header__nav-item-right--user {
+  position: relative;
+}
+
+.header__nav-item-right--user:hover .header__user-opt {
+  display: block;
+}
+
+.header__nav-item-right--user:hover .header__user-arrow {
+  display: block;
+}
+
+.header__user-arrow {
+  position: absolute;
+  right: 2rem;
+  top: -1.2rem;
+  display: none;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid white;
+  z-index: 3;
+}
+
+.header__user-opt {
+  width: 15rem;
+  position: absolute;
+  top: 135%;
+  right: 0;
+  background-color: white;
+  border-radius: 2px;
+  border-top: 0px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 0.0625rem 3.125rem 0px;
+  display: none;
+  z-index: 3;
+  animation: headerNotifyGrowing ease-in 0.15s;
+}
+
+.header__user-opt::before {
+  content: "";
+  width: 15rem;
+  height: 2rem;
+  position: absolute;
+  top: -2rem;
+  right: 0;
+  z-index: 3;
+}
+
+.header__user-link {
+  display: block;
+  line-height: 3.5rem;
+  padding-left: 1.3rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.header__user-link:hover {
+  color: #00bfa5;
+  background-color: #ddd;
 }
