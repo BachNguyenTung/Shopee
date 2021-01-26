@@ -214,7 +214,7 @@ header {
   position: relative;
 }
 
-.header__nav-item-right--user:hover .header__user-opt {
+.header__nav-item-right--user:hover .header__user-list {
   display: block;
 }
 
@@ -233,7 +233,7 @@ header {
   z-index: 3;
 }
 
-.header__user-opt {
+.header__user-list {
   width: 15rem;
   position: absolute;
   top: 135%;
@@ -247,7 +247,7 @@ header {
   animation: headerNotifyGrowing ease-in 0.15s;
 }
 
-.header__user-opt::before {
+.header__user-list::before {
   content: "";
   width: 15rem;
   height: 2rem;
@@ -257,7 +257,7 @@ header {
   z-index: 3;
 }
 
-.header__user-link {
+.header__user-item {
   display: block;
   line-height: 3.5rem;
   padding-left: 1.3rem;
@@ -265,7 +265,7 @@ header {
   color: inherit;
 }
 
-.header__user-link:hover {
+.header__user-item:hover {
   color: #00bfa5;
   background-color: #ddd;
 }
