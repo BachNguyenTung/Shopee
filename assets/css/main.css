@@ -1,17 +1,14 @@
 header {
-  height: 11.9rem;
   background-image: linear-gradient(0, #ff6333, #f53e2d);
 }
 
 .header__nav {
   display: flex;
   justify-content: space-between;
-
   font-size: 1.3rem;
 }
 
 .header__nav-list {
-  padding-top: 1rem;
   display: flex;
 }
 
@@ -62,6 +59,7 @@ header {
   color: var(--while-color);
   text-decoration: none;
   cursor: pointer;
+  line-height: 3rem;
 }
 
 .header__nav-item-link:hover {
@@ -76,7 +74,7 @@ header {
 .header__nav-qr {
   width: 18.6rem;
   position: absolute;
-  top: 150%;
+  top: 100%;
   background-color: var(--while-color);
   border-radius: 2px;
   display: none;
@@ -91,6 +89,7 @@ header {
   width: 100%;
   height: 1.6rem;
   display: flex;
+  /* background-color:red; */
 }
 
 .header__nav-app {
@@ -124,7 +123,7 @@ header {
   background-color: #fff;
   width: 40.4rem;
   position: absolute;
-  top: 3rem;
+  top: 4rem;
   right: 0;
   display: none;
   flex-direction: column;
@@ -149,11 +148,12 @@ header {
   width: 40.4rem;
   height: 2.3rem;
   position: absolute;
-  top: -2rem;
+  top: -1.2rem;
   right: 0;
   display: flex;
   padding: 0 0.6rem;
   z-index: 3;
+  /* background-color:red; */
 }
 
 .header__notify-title {
@@ -245,7 +245,7 @@ header {
 .header__user-list {
   width: 15rem;
   position: absolute;
-  top: 135%;
+  top: 100%;
   right: 0;
   background-color: white;
   border-radius: 2px;
@@ -261,7 +261,7 @@ header {
   width: 15rem;
   height: 2rem;
   position: absolute;
-  top: -2rem;
+  top: -1rem;
   right: 0;
   z-index: 3;
 }
@@ -277,4 +277,104 @@ header {
 .header__user-item:hover {
   color: #00bfa5;
   background-color: #ddd;
+}
+
+.header__search {
+  padding: 1.6rem 0 1rem;
+  display: flex;
+}
+
+.header__logo img {
+  display: block;
+  height: 5rem;
+  color: #fff;
+  padding-right: 4rem;
+  margin-top: -0.4rem;
+}
+
+.header__search-wrapper {
+  position: relative;
+  padding-left: 0.6rem;
+  background-color: var(--while-color);
+  border-radius: 0.2rem;
+}
+
+.header__search-input {
+  width: 84rem;
+  height: 3.8rem;
+  border: none;
+  outline: none;
+}
+
+.header__search-input::placeholder {
+  opacity: 0.5;
+}
+
+.header__search-icon {
+  width: 5.9rem;
+  height: 3.3rem;
+  display: inline;
+  position: absolute;
+  right: 0.3rem;
+  top: 0.3rem;
+  text-align: center;
+  background-color: #fb5533;
+  border-radius: 0.2rem;
+}
+
+.header__search-icon i {
+  font-size: 1.4rem;
+  display: block;
+  line-height: 3.3rem;
+  color: var(--while-color);
+}
+
+.header__search-list {
+  display: flex;
+}
+
+.header__search-item {
+  padding-top: 0.6rem;
+  font-size: 1.2rem;
+  padding-right: 1.3rem;
+}
+
+.header__search-item:last-child {
+  padding-right: 0rem;
+}
+
+.header__item-link {
+  text-decoration: none;
+  color: hsla(0, 0%, 100%, 0.9);
+}
+
+.header__cart {
+  width: 13.8rem;
+  height: 5.9rem;
+  text-align: center;
+  display: flex;
+}
+
+.header__cart-icon {
+  display: inline-block;
+  font-size: 2.5rem;
+  margin: auto;
+  position: relative;
+  margin-bottom: 1.9rem;
+  color: var(--while-color);
+}
+
+.header__cart-numb {
+  position: absolute;
+  font-size: 1.4rem;
+  font-weight: 500;
+  background-color: var(--while-color);
+  min-width: 1.3rem;
+  padding: 0 0.3rem;
+  text-align: center;
+  border-radius: 2.75rem;
+  border: 0.125rem solid #ee4d2d;
+  color: #ee4d2d;
+  top: -0.4rem;
+  right: -1.3rem;
 }
