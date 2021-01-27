@@ -80,6 +80,8 @@ header {
   display: none;
   flex-direction: column;
   animation: fadeIn ease-in 0.5s;
+  will-change: opacity;
+  z-index: 3;
 }
 
 .header__nav-qr::before {
@@ -131,16 +133,9 @@ header {
   border-top: 0px;
   box-shadow: rgb(0 0 0 / 20%) 0px 0.0625rem 3.125rem 0px;
   z-index: 3;
-  animation: headerNotifyGrowing ease-in 0.15s;
-}
-
-@keyframes headerNotifyGrowing {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
+  animation: headerNotifyGrowing ease-in 0.2s;
+  transform-origin: 90% top;
+  will-change: opacity, transform;
 }
 
 .header__notify::before {
@@ -184,9 +179,12 @@ header {
   padding: 0.6rem 0 1.8rem;
 }
 
+.header__notify-news{
+  padding: 0.6rem 0.6rem;
+}
+
 .header__notify-user,
 .header__notify-news {
-  padding: 0 0.6rem;
   background-color: #f9dcd9;
 }
 
@@ -210,7 +208,6 @@ header {
   display: block;
   padding: 1.3rem 0;
   text-align: center;
-  justify-self: center;
   text-decoration: none;
   color: inherit;
 }
@@ -254,6 +251,8 @@ header {
   display: none;
   z-index: 3;
   animation: headerNotifyGrowing ease-in 0.15s;
+  transform-origin: 90% top;
+  will-change: opacity, transform;
 }
 
 .header__user-list::before {
