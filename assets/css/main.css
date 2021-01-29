@@ -10,7 +10,6 @@ header {
 
 .header__nav-list {
   display: flex;
-  line-height: 3rem;
 }
 
 .header__nav-item {
