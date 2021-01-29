@@ -165,14 +165,10 @@ header {
 
 .header__notify-link {
   display: flex;
-  text-decoration: none;
-}
-
-.header__notify-link {
-  display: flex;
   padding: 0.6rem 0;
   color: var(--grey-color);
   line-height: 1.4;
+  text-decoration: none;
 }
 
 .header__notify-user:hover,
@@ -285,7 +281,7 @@ header {
   color: var(--while-color);
 }
 
-.header__nav-register:hover{
+.header__nav-register:hover {
   color: #ccc;
 }
 
