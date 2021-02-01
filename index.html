@@ -15,7 +15,7 @@
   <body>
     <div class="app">
       <header class="header">
-        <div class="grid grid__fullheight ">
+        <div class="grid grid--fullheight">
           <nav class="header__nav">
             <div class="header__nav-list">
               <li class="header__nav-item">
@@ -25,7 +25,7 @@
                 <a href="#" class="header__nav-item-link">Tải ứng dụng</a>
                 <div class="header__nav-qr">
                   <img
-                    src="./assets/img/qr-code-home.png"
+                    src="./assets/img/product.png"
                     alt="qr-code"
                     class="header__nav-qr-img"
                   />
@@ -70,7 +70,7 @@
                   <div class="header__notify-news">
                     <a href="" class="header__notify-link">
                       <div class="header__notify-img">
-                        <img src="./assets/img/qr-code-home.png" alt="" />
+                        <img src="./assets/img/product.png" alt="" />
                       </div>
                       <div class="header__notify-info">
                         <p>Xem bài đăng của shoppevn:</p>
@@ -81,7 +81,7 @@
                   <div class="header__notify-news">
                     <a href="" class="header__notify-link">
                       <div class="header__notify-img">
-                        <img src="./assets/img/qr-code-home.png" alt="" />
+                        <img src="./assets/img/product.png" alt="" />
                       </div>
                       <div class="header__notify-info">
                         <p>Xem bài đăng của shoppevn:</p>
@@ -92,7 +92,7 @@
                   <div class="header__notify-news">
                     <a href="" class="header__notify-link">
                       <div class="header__notify-img">
-                        <img src="./assets/img/qr-code-home.png" alt="" />
+                        <img src="./assets/img/product.png" alt="" />
                       </div>
                       <div class="header__notify-info">
                         <p>Xem bài đăng của shoppevn:</p>
@@ -103,7 +103,7 @@
                   <div class="header__notify-user">
                     <a href="" class="header__notify-link">
                       <div class="header__notify-img">
-                        <img src="./assets/img/qr-code-home.png" alt="" />
+                        <img src="./assets/img/product.png" alt="" />
                       </div>
                       <div class="header__notify-info">
                         <p>Xem bài đăng của shoppevn:</p>
@@ -114,7 +114,7 @@
                   <div class="header__notify-user">
                     <a href="" class="header__notify-link">
                       <div class="header__notify-img">
-                        <img src="./assets/img/qr-code-home.png" alt="" />
+                        <img src="./assets/img/product.png" alt="" />
                       </div>
                       <div class="header__notify-info">
                         <p>Xem bài đăng của shoppevn:</p>
@@ -222,7 +222,7 @@
                       <a href="" class="header__cart-link">
                         <img
                           class="header__cart-img"
-                          src="./assets/img/qr-code-home.png"
+                          src="./assets/img/product.png"
                           alt=""
                         />
                         <div class="header__cart-name">
@@ -235,7 +235,7 @@
                       <a href="" class="header__cart-link">
                         <img
                           class="header__cart-img"
-                          src="./assets/img/qr-code-home.png"
+                          src="./assets/img/product.png"
                           alt=""
                         />
                         <div class="header__cart-name">
@@ -248,7 +248,7 @@
                       <a href="" class="header__cart-link">
                         <img
                           class="header__cart-img"
-                          src="./assets/img/qr-code-home.png"
+                          src="./assets/img/product.png"
                           alt=""
                         />
                         <div class="header__cart-name">
@@ -273,7 +273,295 @@
           </div>
         </div>
       </header>
-      <div class="container">
+      <div class="app__container">
+        <div class="grid">
+          <div class="grid__row grid__row--1200">
+            <div class="grid__col-2x">
+              <div class="app__container-category">
+                <div class="app__category-heading">
+                  <i class="app__heading-icon bi bi-list-ul"></i>Danh mục
+                </div>
+                <ul class="app__category-list">
+                  <li class="app__category-title">
+                    <div class="app__title-icon"></div>
+                    Sản phẩm
+                  </li>
+                  <li class="app__category-item">
+                    <a href="" class="app__item-link">Mọc tóc, râu, mi, mày</a>
+                  </li>
+                  <li class="app__category-item">
+                    <a href="" class="app__item-link">Dầu gội, xả</a>
+                  </li>
+                  <li class="app__category-item">
+                    <a href="" class="app__item-link">Trị rụng tóc</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="grid__col-10x">
+              <div class="app__product-container">
+                <div class="app__filter">
+                  <div class="app__filter-label">Sắp xếp theo</div>
+                  <div class="app__filter-list">
+                    <button class="app__filter-item">Phổ biến</button>
+                    <button class="app__filter-item">Mới nhất</button>
+                    <button class="app__filter-item">Bán chạy</button>
+                    <div class="app__filter-item">
+                      <select class="app__filter-select">
+                        <option value="" selected disabled hidden>Giá</option>
+                        <option
+                          class="app__filter-opt"
+                          value="Giá: Thấp đến Cao"
+                        >
+                          Giá: Thấp đến Cao
+                        </option>
+                        <option
+                          class="app__filter-opt"
+                          value="Giá: Cao đến Thấp"
+                        >
+                          Giá: Cao đến Thấp
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="app__filter-page">
+                    <span class="app__page-number">1</span><span>/</span
+                    ><span class="app__page-page-total">6</span>
+                    <button class="app__pre-page">next</button>
+                    <button class="app_next-page">next</button>
+                  </div>
+                </div>
+                <div class="app_product">
+                  <div class="app__product-list">
+                    <div class="app__product-item">
+                      <a href="" class="app__product-link">
+                        <div class="app__product-top-text">Yêu thích</div>
+                        <img
+                          src="./assets/img/product.png"
+                          alt="app__product-img"
+                          class="app__product-img"
+                        />
+
+                        <div class="app__product-info">
+                          <div class="app__product-name">
+                            [MUA 5 TẶNG 2] Bột tretinoin nhân đôi sự hấp thu
+                            minoxidil
+                          </div>
+                          <div
+                            class="app__product-discount app__product-discount--active"
+                          >
+                            Mua 2 giảm 5%
+                          </div>
+                          <div class="app__product-price-wrapper">
+                            <div class="app__product-price">140000</div>
+                            <div class="app__product-free-ship">
+                              1<i class="app__free-ship-icon"></i>
+                            </div>
+                          </div>
+                          <div class="app__product-more">
+                            <div class="app_more-love">love</div>
+                            <div class="app__more-rating">star</div>
+                            <div class="app__more-sold">
+                              <span>Đã bán</span>333
+                            </div>
+                          </div>
+                          <div class="app__product-location">
+                            TP. Hồ Chí Minh
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="app__product-item">
+                      <a href="" class="app__product-link">
+                        <div class="app__product-top-text">Yêu thích</div>
+                        <img
+                          src="./assets/img/product.png"
+                          alt="app__product-img"
+                          class="app__product-img"
+                        />
+                        <div class="app__product-info">
+                          <div class="app__product-name">
+                            [MUA 5 TẶNG 2] Bột tretinoin nhân đôi sự hấp thu
+                            minoxidil
+                          </div>
+                          <div
+                            class="app__product-discount app__product-discount--active"
+                          >
+                            Mua 2 giảm 5%
+                          </div>
+                          <div class="app__product-price-wrapper">
+                            <div class="app__product-price">140000</div>
+                            <div class="app__product-free-ship">
+                              1<i class="app__free-ship-icon"></i>
+                            </div>
+                          </div>
+                          <div class="app__product-more">
+                            <div class="app_more-love">love</div>
+                            <div class="app__more-rating">star</div>
+                            <div class="app__more-sold">
+                              <span>Đã bán</span>333
+                            </div>
+                          </div>
+                          <div class="app__product-location">
+                            TP. Hồ Chí Minh
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="app__product-item">
+                      <a href="" class="app__product-link">
+                        <div class="app__product-top-text">Yêu thích</div>
+                        <img
+                          src="./assets/img/product.png"
+                          alt="app__product-img"
+                          class="app__product-img"
+                        />
+                        <div class="app__product-info">
+                          <div class="app__product-name">
+                            [MUA 5 TẶNG 2] Bột tretinoin nhân đôi sự hấp thu
+                            minoxidil
+                          </div>
+                          <div
+                            class="app__product-discount app__product-discount--active"
+                          >
+                            Mua 2 giảm 5%
+                          </div>
+                          <div class="app__product-price-wrapper">
+                            <div class="app__product-price">140000</div>
+                            <div class="app__product-free-ship">
+                              1<i class="app__free-ship-icon"></i>
+                            </div>
+                          </div>
+                          <div class="app__product-more">
+                            <div class="app_more-love">love</div>
+                            <div class="app__more-rating">star</div>
+                            <div class="app__more-sold">
+                              <span>Đã bán</span>333
+                            </div>
+                          </div>
+                          <div class="app__product-location">
+                            TP. Hồ Chí Minh
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="app__product-item">
+                      <a href="" class="app__product-link">
+                        <div class="app__product-top-text">Yêu thích</div>
+                        <img
+                          src="./assets/img/product.png"
+                          alt="app__product-img"
+                          class="app__product-img"
+                        />
+                        <div class="app__product-info">
+                          <div class="app__product-name">
+                            [MUA 5 TẶNG 2] Bột tretinoin nhân đôi sự hấp thu
+                            minoxidil
+                          </div>
+                          <div
+                            class="app__product-discount app__product-discount--active"
+                          >
+                            Mua 2 giảm 5%
+                          </div>
+                          <div class="app__product-price-wrapper">
+                            <div class="app__product-price">140000</div>
+                            <div class="app__product-free-ship">
+                              1<i class="app__free-ship-icon"></i>
+                            </div>
+                          </div>
+                          <div class="app__product-more">
+                            <div class="app_more-love">love</div>
+                            <div class="app__more-rating">star</div>
+                            <div class="app__more-sold">
+                              <span>Đã bán</span>333
+                            </div>
+                          </div>
+                          <div class="app__product-location">
+                            TP. Hồ Chí Minh
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="app__product-item">
+                      <a href="" class="app__product-link">
+                        <div class="app__product-top-text">Yêu thích</div>
+                        <img
+                          src="./assets/img/product.png"
+                          alt="app__product-img"
+                          class="app__product-img"
+                        />
+                        <div class="app__product-info">
+                          <div class="app__product-name">
+                            [MUA 5 TẶNG 2] Bột tretinoin nhân đôi sự hấp thu
+                            minoxidil
+                          </div>
+                          <div
+                            class="app__product-discount app__product-discount--active"
+                          >
+                            Mua 2 giảm 5%
+                          </div>
+                          <div class="app__product-price-wrapper">
+                            <div class="app__product-price">140000</div>
+                            <div class="app__product-free-ship">
+                              1<i class="app__free-ship-icon"></i>
+                            </div>
+                          </div>
+                          <div class="app__product-more">
+                            <div class="app_more-love">love</div>
+                            <div class="app__more-rating">star</div>
+                            <div class="app__more-sold">
+                              <span>Đã bán</span>333
+                            </div>
+                          </div>
+                          <div class="app__product-location">
+                            TP. Hồ Chí Minh
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="app__product-item">
+                      <a href="" class="app__product-link">
+                        <div class="app__product-top-text">Yêu thích</div>
+                        <img
+                          src="./assets/img/product.png"
+                          alt="app__product-img"
+                          class="app__product-img"
+                        />
+                        <div class="app__product-info">
+                          <div class="app__product-name">
+                            [MUA 5 TẶNG 2] Bột tretinoin nhân đôi sự hấp thu
+                            minoxidil
+                          </div>
+                          <div
+                            class="app__product-discount app__product-discount--active"
+                          >
+                            Mua 2 giảm 5%
+                          </div>
+                          <div class="app__product-price-wrapper">
+                            <div class="app__product-price">140000</div>
+                            <div class="app__product-free-ship">
+                              1<i class="app__free-ship-icon"></i>
+                            </div>
+                          </div>
+                          <div class="app__product-more">
+                            <div class="app_more-love">love</div>
+                            <div class="app__more-rating">star</div>
+                            <div class="app__more-sold">
+                              <span>Đã bán</span>333
+                            </div>
+                          </div>
+                          <div class="app__product-location">
+                            TP. Hồ Chí Minh
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <footer class="footer"></footer>
     </div>

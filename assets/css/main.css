@@ -533,6 +533,7 @@ header {
 
 .header__cart-list--empty {
   padding: 6rem 3rem;
+  z-index: 3;
 }
 
 .header__cart-list--empty::before {
@@ -614,4 +615,250 @@ header {
   outline: none;
   color: var(--while-color);
   text-align: center;
+}
+
+/* container */
+.app__container {
+  background-color: var(--lighter-grey-color);
+}
+
+.app__container-category {
+  font-size: 1.4rem;
+}
+
+.app__category-heading {
+  padding: 2rem 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  text-transform: capitalize;
+}
+
+.app__heading-icon {
+  margin-right: 1rem;
+  font-weight: 600;
+}
+.app__category-list {
+  margin-top: 1rem;
+  line-height: 3.2rem;
+  padding-left: 0.8rem;
+}
+.app__category-title {
+  color: var(--primary-color);
+  display: inline-block;
+  position: relative;
+}
+
+.app__title-icon {
+  width: 0;
+  height: 0;
+  border-top: 0.4rem solid transparent;
+  border-bottom: 0.4rem solid transparent;
+  border-left: 0.4rem solid var(--primary-color);
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: -0.7rem;
+  transform: translateY(-50%);
+}
+
+.app__category-item {
+  color: var(--text-color);
+  /* transition: right linear 0.1s;
+  right: 0rem; */
+}
+
+.app__category-item:hover {
+  /* right: -0.4rem; */
+  color: var(--primary-color);
+}
+
+.app__item-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.app__product-container {
+}
+
+.app__filter {
+  display: flex;
+  font-size: 1.4rem;
+  padding: 1.3rem 2rem;
+  line-height: 3.4rem;
+  background-color: #ededed;
+  border-radius: 0.2rem;
+}
+
+.app__filter-label {
+}
+
+.app__filter-list {
+  display: flex;
+  flex: 1;
+}
+
+.app__filter-item {
+  margin-left: 1.3rem;
+  padding: 0 1.5rem;
+  background-color: var(--while-color);
+  border: none;
+  text-decoration: none;
+  border-radius: 0.2rem;
+  color: var(--text-color);
+  outline: none;
+}
+
+.app__filter-item:active {
+  color: var(--while-color);
+  background-color: var(--primary-color);
+}
+
+.app__filter-select {
+  height: 100%;
+  border: none;
+  outline: none;
+}
+
+.app__filter-opt {
+  /* color:red;
+  padding: 0 1.5rem; */
+}
+
+.app__filter-page {
+  display: flex;
+}
+
+.app__page-number {
+  color: var(--primary-color);
+}
+
+.app__page-page-total {
+}
+
+.app__pre-page,
+.app_next-page {
+  border: none;
+  background-color: var(--while-color);
+  box-shadow: 0 0.1rem 0.1rem 0 rgb(0 0 0 / 10%);
+  border-radius: 0.2rem;
+}
+
+.app__pre-page {
+  margin-left: 2rem;
+}
+
+.app_product {
+}
+
+.app__product-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.3rem;
+}
+
+.app__product-item {
+  flex-basis: 20%;
+  margin-top: 1rem;
+  padding: 0 0.3rem;
+  position: relative;
+  background-color: var(--while-color);
+  font-size: 1.2rem;
+  transform: translateY(0);
+}
+
+.app__product-link {
+  display: block;
+  box-shadow: 0 0.0625rem 0.5rem 0 rgb(0 0 0 / 10%);
+  border-radius: 0.12rem;
+  text-decoration: none;
+  color: var(--text-color);
+  position: relative;
+}
+
+.app__product-link:hover {
+  transform: translateY(-0.0625rem);
+  box-shadow: 0 0.2rem 2rem 0 rgb(0 0 0 / 10%);
+}
+
+.app__product-link:before {
+  content: "";
+  position: absolute;
+  top: 8.2%;
+  left: -2%;
+  border-top: 0.3875rem solid var(--primary-color);
+  border-left: 0.3875rem solid transparent;
+  filter: brightness(60%);
+}
+
+.app__product-top-text {
+  padding: 0.2rem 0.4rem;
+  position: absolute;
+  top: 3%;
+  left: -2%;
+  color: var(--while-color);
+  background-color: var(--primary-color);
+}
+
+.app__product-img {
+  max-width: 100%;
+}
+
+.app__product-info {
+  padding: 0.8rem;
+}
+
+.app__product-name {
+}
+
+.app__product-discount {
+  margin-top: 0.6rem;
+}
+
+.app__product-discount--active {
+}
+
+.app__product-price-wrapper {
+  margin-top: 0.6rem;
+  font-size: 1.6rem;
+}
+
+.app__product-price {
+  color: var(--primary-color);
+  display: inline-block;
+}
+
+.app__product-free-ship {
+  float: right;
+}
+
+.app__free-ship-icon {
+}
+
+.app__product-more {
+  margin-top: 0.6rem;
+  display: flex;
+}
+
+.app_more-love {
+  margin-right: 0.3rem;
+}
+
+.app__more-rating {
+  flex: 1;
+  text-align: right;
+}
+
+.app__more-sold {
+  margin-left: 0.3rem;
+}
+
+.app__more-sold span {
+  margin-right: 0.3rem;
+}
+
+.app__product-location {
+  margin-top: 0.6rem;
+  text-align: right;
 }

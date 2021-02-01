@@ -5,17 +5,21 @@
   --text-color: #333;
   --grey-color: #888;
   --lighter-grey-color: #f8f8f8;
-  --primary-color:#ee4d2d;
+  --primary-color: #ee4d2d;
 }
 
 /* shopee customize responsive */
 .grid {
-  width: 1200px;
+  width: 120rem;
   max-width: 100%;
   margin: 0 auto;
 }
 
-.grid__fullheight {
+.grid-1000 {
+  width: 100rem;
+}
+
+.grid--fullheight {
   height: 100%;
 }
 
@@ -28,10 +32,38 @@
   flex-wrap: wrap;
 }
 
+.grid__row--1200 {
+  margin-left: -1.2rem;
+  margin-right: -1.2rem;
+  padding-top: 3rem;
+}
+
+.grid__row--1000 {
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+/* test */
+.grid__col-2x {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  flex-basis: 16.6667%;
+}
+
+.grid__col-10x {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  flex-basis: 83.3333%;
+}
+
+.grid__col {
+  padding: 0 1rem;
+  flex: 1;
+}
 /* Common */
 .header__nav-item--border-lr {
-  border-left: 2px solid hsla(0, 0%, 100%, 0.22);
-  border-right: 2px solid hsla(0, 0%, 100%, 0.22);
+  border-left: 0.2rem solid hsla(0, 0%, 100%, 0.22);
+  border-right: 0.2rem solid hsla(0, 0%, 100%, 0.22);
 }
 
 @keyframes fadeIn {
@@ -53,4 +85,3 @@
     transform: scale(1);
   }
 }
-
