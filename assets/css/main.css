@@ -975,3 +975,7 @@ header {
   font-weight: 200;
   font-size: 1.1rem;
 }
+
+.pagination--mtb3{
+  margin: 3rem 0;
+}
