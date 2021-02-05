@@ -10,6 +10,7 @@
 
 /* shopee customize responsive */
 .grid {
+  width: 120rem;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -21,8 +22,9 @@
   margin-right: -0.5rem;
 }
 
-.grid__row--padt3 {
+.grid__row--padtb3 {
   padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 /* test */

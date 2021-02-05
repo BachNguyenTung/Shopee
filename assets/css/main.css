@@ -71,10 +71,11 @@ header {
   padding: 0.5rem;
 }
 
-.header__nav-icon-link {
+.header__nav-login-link {
   display: none;
   color: var(--while-color);
   text-decoration: none;
+  line-height: 3rem;
 }
 
 .header__nav-qr {
@@ -230,7 +231,7 @@ header {
   display: block;
 }
 
-.header__nav-item-right--user .header__nav-icon-link,
+.header__nav-item-right--user .header__nav-login-link,
 .header__user-list {
   display: block;
 }
@@ -521,8 +522,8 @@ header {
   transform-origin: 90% top;
   will-change: opacity, transform;
   z-index: 3;
-  max-height: 50vh;
-  /* 50% viewport height*/
+  max-height: 70vh;
+  /* 70% viewport height*/
   /* overflow-y: auto; */
 }
 
@@ -943,7 +944,7 @@ header {
   margin-top: -0.2rem;
 }
 
-.app__love-icon-red{
+.app__love-icon-red {
   color: red;
 }
 
@@ -976,6 +977,95 @@ header {
   font-size: 1.1rem;
 }
 
-.pagination--mtb3{
+.footer__grid{
+  border-top: 1px solid #f5f5f5;
+  /* border-bottom: 1px solid #737373; */
+}
+
+.footer__ads{
+  height: 12rem;
+  border-top: 3px solid var(--primary-color);
+}
+
+.pagination--mtb3 {
   margin: 3rem 0;
+}
+
+.footer__heading {
+  margin-bottom: 1.6rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #737373;
+}
+
+.footer__list {
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  color: var(--grey-color);
+}
+
+.footer__item {
+  margin-bottom: 1.3rem;
+}
+
+.footer__item-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer__app-wrapper {
+  display: flex;
+  max-width: 100%;
+}
+
+.footer__qr-img {
+  width: 8rem;
+  object-fit: contain;
+}
+
+.footer__app {
+  margin-left: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+}
+
+.footer__app-img {
+  width: 8rem;
+}
+
+.footer__item-icon {
+  color: #4a4a4a;
+  font-size: 1.6rem;
+  margin-right: 1rem;
+}
+
+.footer__list-payment,
+.footer__list-shipping {
+  display: flex;
+  flex-wrap: wrap;
+  padding-right: 4rem;
+}
+
+.footer__payment-item {
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  overflow: hidden;
+}
+
+.footer__payment-backround {
+  width: 5.5rem;
+  height: 1.8rem;
+  background-image: url(../img/payment&shipping.png);
+  background-position: 77.55102040816327% 28.74251497005988%;
+}
+
+.footer__lisence {
+  margin: 0 auto;
+  font-size: 1.3rem;
+  color: var(--text-color);
 }
