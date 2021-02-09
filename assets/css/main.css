@@ -661,15 +661,18 @@ header {
 
 .app__category-item {
   color: var(--text-color);
-  /* transition: right linear 0.1s;
-  right: 0rem; */
+  transition: transform linear 0.1s;
+  will-change: transform;
 }
+
+.app__category-item:hover{
+  transform: translateX(0.5rem)
+} 
 
 .app__category-item--active {
   color: var(--primary-color);
   position: relative;
 }
-
 
 .app__item-icon {
   width: 0;

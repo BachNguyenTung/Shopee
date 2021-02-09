@@ -22,12 +22,15 @@ inputSelects.forEach((inputSelect, index) => {
 
 //app__category-list
 const categories = [...$$(".app__category-item")];
-categories.forEach((category) => {
+categories.forEach((category, index) => {
   category.addEventListener("click", () => {
-      console.log('sdds');
+    $(".app__category-item.app__category-item--active").removeChild(
+      $(".app__item-icon")
+    );
     $(".app__category-item.app__category-item--active").classList.remove(
       "app__category-item--active"
     );
     category.classList.add("app__category-item--active");
+    category.innerHTML += `<div class="app__item-icon"></div>`;
   });
 });
