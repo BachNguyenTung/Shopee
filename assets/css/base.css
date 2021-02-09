@@ -66,11 +66,6 @@
   outline: none;
 }
 
-.btn--primary {
-  background-color: var(--primary-color);
-  color: var(--while-color);
-}
-
 /* Select input */
 .select-input {
   margin-left: 1.3rem;
