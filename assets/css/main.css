@@ -665,9 +665,9 @@ header {
   will-change: transform;
 }
 
-.app__category-item:hover{
-  transform: translateX(0.5rem)
-} 
+.app__category-item:hover {
+  transform: translateX(0.5rem);
+}
 
 .app__category-item--active {
   color: var(--primary-color);
@@ -751,6 +751,16 @@ header {
   min-width: 100%;
   height: 0.5rem;
   z-index: 3;
+}
+
+.app__input-item {
+  position: relative;
+}
+
+.app__input-item-icon {
+  position: absolute;
+  right: -1rem;
+  color:var(--primary-color);
 }
 
 .app__input-item:hover {

@@ -3,7 +3,7 @@ const items = [
   {
     name: "Áo gile unisex form rộng Gile Basic Tea nam nữ ulzzang Wind",
     imageUrl: "./assets/img/ao.png",
-    price: 140000,
+    price: 100000,
     rating: 5,
     soldAmount: 10,
     freeShip: true,
@@ -24,6 +24,96 @@ const items = [
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
     imageUrl: "./assets/img/ao.png",
+    price: 190000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 170000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 160000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 150000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 140000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 140000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 140000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 140000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 140000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
     price: 140000,
     rating: 5,
     soldAmount: 30,
@@ -32,19 +122,6 @@ const items = [
     date: new Date("02/08/2021"),
   },
 ];
-
-// select-input
-const inputSelects = [...$$(".app__input-item")];
-inputSelects.forEach((inputSelect, index) => {
-  inputSelect.addEventListener("click", () => {
-    $(".app__input-lable").innerHTML = inputSelect.innerHTML;
-    $(".app__input-lable").style.color = "var(--primary-color)";
-    $(".app__input-list").style.display = "none";
-    $(".select-input").addEventListener("mouseover", () => {
-      $(".app__input-list").removeAttribute("style");
-    });
-  });
-});
 
 function render(items){
   html = items.map(item =>{
