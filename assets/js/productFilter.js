@@ -53,16 +53,16 @@ inputSelects.forEach((inputSelect, index) => {
     $(".select-input").addEventListener("mouseover", () => {
       $(".app__input-list").removeAttribute("style");
     });
-
     //Add check icon
-    // if (inputSelect.classList.contains("app__price-asc")) {
-    //   inputSelect.innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
-    //   $(".app__price-desc").removeChild($(".app__input-item-icon"));
-    // }
-    // if (inputSelect.classList.contains("app__price-desc")) {
-    //   inputSelect.innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
-    //   $(".app__price-asc").removeChild($(".app__input-item-icon"));
-    // }
+    $(".app__input-item.app__input-item--active").removeChild(
+      $(".app__input-item-icon")
+    );
+    $(".app__input-item.app__input-item--active").classList.remove(
+      "app__input-item--active"
+    );
+
+    inputSelect.classList.add("app__input-item--active");
+    inputSelect.innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
   });
 });
 
@@ -98,12 +98,17 @@ filterButtons.forEach((filterButton, index) => {
     //Set default input label
     $(".app__input-lable").innerHTML = inputDefaultLabel;
     $(".app__input-lable").style.color = inputDefaultColor;
-    // if ($(".app__price-desc").hasChildNodes()) {
-    //   console.log("2323");
-    //   $(".app__price-desc").removeChild($(".app__input-item-icon"));
-    // }
-    // if ($(".app__price-asc").hasChildNodes()) {
-    //   $(".app__price-asc").removeChild($(".app__input-item-icon"));
-    // }
+
+    //Set Price Default
+    $(".app__input-item.app__input-item--active").removeChild(
+      $(".app__input-item-icon")
+    );
+    $(".app__input-item.app__input-item--active").classList.remove(
+      "app__input-item--active"
+    );
+    $(".app__price-default").classList.add("app__input-item--active");
+    $(
+      ".app__price-default"
+    ).innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
   });
 });

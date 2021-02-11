@@ -757,6 +757,14 @@ header {
   position: relative;
 }
 
+.app__price-default{
+  display: none;
+}
+
+.app__input-item--active {
+  color: var(--primary-color);
+}
+
 .app__input-item-icon {
   position: absolute;
   right: -1rem;
