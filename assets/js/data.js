@@ -1,14 +1,15 @@
 //products
 const items = [
   {
-    name: "Áo gile unisex form rộng Gile Basic Tea nam nữ ulzzang Wind",
-    imageUrl: "./assets/img/ao.png",
-    price: 100000,
+    name: "Giày nam Hot 2020 giày chạy bộ thể thao hoang dã xu hướng mới giày thể thao nam sneaker siêu nhẹ GN304  - A",
+    imageUrl: "./assets/img/giay.png",
+    price: 400000,
     rating: 5,
     soldAmount: 10,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/10/2021"),
+    type: "shoe",
   },
   {
     name:
@@ -20,6 +21,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/09/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -30,6 +32,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -40,6 +43,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -50,6 +54,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -60,6 +65,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -70,6 +76,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -80,6 +87,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -90,6 +98,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -100,6 +109,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -110,6 +120,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -120,6 +131,7 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
+    type:"shirt",
   },
 ];
 
@@ -267,19 +279,5 @@ function render(items){
   $('.grid__row-product').innerHTML = html;
 }
 
-//app__category-list
-const categories = [...$$(".app__category-item")];
-categories.forEach((category, index) => {
-  category.addEventListener("click", () => {
-    $(".app__category-item.app__category-item--active").removeChild(
-      $(".app__item-icon")
-    );
-    $(".app__category-item.app__category-item--active").classList.remove(
-      "app__category-item--active"
-    );
-    category.classList.add("app__category-item--active");
-    category.innerHTML += `<div class="app__item-icon"></div>`;
-  });
-});
 
 

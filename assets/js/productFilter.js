@@ -1,9 +1,10 @@
 let sortedItems = [];
 let tempItems = [...items];
-var today = new Date();
+let defaultItems = [...tempItems];
+let today = new Date();
 const bestSelling = 20;
-let inputItemIcon = $(".app__input-item-icon");
 //Loaded
+defaultCatefilter();
 popularFilter();
 render(sortedItems);
 
@@ -14,6 +15,7 @@ function popularFilter() {
       item.date.getDate() > today.getDate() - 7 &&
       item.soldAmount >= bestSelling
   );
+  console.log(sortedItems);
 }
 
 // Best Selling Filter
@@ -38,6 +40,25 @@ function priceDescFilter() {
   sortedItems = sortedItems.sort(
     (a, b) => parseFloat(b.price) - parseFloat(a.price)
   );
+}
+
+//Category filter
+function shoeFilter() {
+  sortedItems = sortedItems.filter((item) => item.type == "shoe");
+  tempItems = defaultItems.filter((item) => item.type == "shoe");
+  console.log(sortedItems);
+}
+
+function shirtFilter() {
+  sortedItems = sortedItems.filter((item) => item.type == "shirt");
+  tempItems = defaultItems.filter((item) => item.type == "shirt");
+  console.log(tempItems);
+}
+
+function defaultCatefilter() {
+  //sortedItem -> default
+  tempItems = [...defaultItems];
+  console.log(tempItems);
 }
 
 //Price event
@@ -95,6 +116,56 @@ filterButtons.forEach((filterButton, index) => {
       render(sortedItems);
     }
 
+    //Set default input label
+    $(".app__input-lable").innerHTML = inputDefaultLabel;
+    $(".app__input-lable").style.color = inputDefaultColor;
+
+    //Set Price Default
+    $(".app__input-item.app__input-item--active").removeChild(
+      $(".app__input-item-icon")
+    );
+    $(".app__input-item.app__input-item--active").classList.remove(
+      "app__input-item--active"
+    );
+    $(".app__price-default").classList.add("app__input-item--active");
+    $(
+      ".app__price-default"
+    ).innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
+  });
+});
+
+//app__category-list
+const categories = [...$$(".app__category-item")];
+categories.forEach((category, index) => {
+  category.addEventListener("click", () => {
+    $(".app__category-item.app__category-item--active").removeChild(
+      $(".app__item-icon")
+    );
+    $(".app__category-item.app__category-item--active").classList.remove(
+      "app__category-item--active"
+    );
+    category.classList.add("app__category-item--active");
+    category.innerHTML += `<div class="app__item-icon"></div>`;
+    if (category.classList.contains("app__category-default")) {
+      defaultCatefilter();
+      popularFilter();
+      render(sortedItems);
+    }
+
+    if (category.classList.contains("app__category-shirt")) {
+      shirtFilter();
+      popularFilter();
+      render(sortedItems);
+    }
+
+    if (category.classList.contains("app__category-shoe")) {
+      shoeFilter();
+      popularFilter();
+      render(sortedItems);
+    }
+    //Set default Popular+Newest+Date
+    $(".app__filter-item.btn--active").classList.remove("btn--active");
+    $('.app__filter-popular').classList.add("btn--active");
     //Set default input label
     $(".app__input-lable").innerHTML = inputDefaultLabel;
     $(".app__input-lable").style.color = inputDefaultColor;

@@ -696,6 +696,7 @@ header {
   display: block;
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 .app__filter {
