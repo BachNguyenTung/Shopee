@@ -46,19 +46,41 @@ function priceDescFilter() {
 function shoeFilter() {
   sortedItems = sortedItems.filter((item) => item.type == "shoe");
   tempItems = defaultItems.filter((item) => item.type == "shoe");
-  console.log(sortedItems);
 }
 
 function shirtFilter() {
   sortedItems = sortedItems.filter((item) => item.type == "shirt");
   tempItems = defaultItems.filter((item) => item.type == "shirt");
-  console.log(tempItems);
+}
+
+function bagFilter() {
+  sortedItems = sortedItems.filter((item) => item.type == "bag");
+  tempItems = defaultItems.filter((item) => item.type == "bag");
+}
+
+function setFilter() {
+  sortedItems = sortedItems.filter((item) => item.type == "set");
+  tempItems = defaultItems.filter((item) => item.type == "set");
+}
+
+function discountFilter() {
+  sortedItems = sortedItems.filter((item) => item.type == "discount");
+  tempItems = defaultItems.filter((item) => item.type == "discount");
+}
+
+function newFilter() {
+  sortedItems = sortedItems.filter((item) => item.type == "new");
+  tempItems = defaultItems.filter((item) => item.type == "new");
+}
+
+function accessoriesFilter() {
+  sortedItems = sortedItems.filter((item) => item.type == "accessories");
+  tempItems = defaultItems.filter((item) => item.type == "accessories");
 }
 
 function defaultCatefilter() {
   //sortedItem -> default
   tempItems = [...defaultItems];
-  console.log(tempItems);
 }
 
 //Price event
@@ -160,6 +182,36 @@ categories.forEach((category, index) => {
 
     if (category.classList.contains("app__category-shoe")) {
       shoeFilter();
+      popularFilter();
+      render(sortedItems);
+    }
+
+    if (category.classList.contains("app__category-bag")) {
+      bagFilter();
+      popularFilter();
+      render(sortedItems);
+    }
+
+    if (category.classList.contains("app__category-set")) {
+      setFilter();
+      popularFilter();
+      render(sortedItems);
+    }
+
+    if (category.classList.contains("app__category-discount")) {
+      discountFilter();
+      popularFilter();
+      render(sortedItems);
+    }
+
+    if (category.classList.contains("app__category-new")) {
+      newFilter();
+      popularFilter();
+      render(sortedItems);
+    }
+
+    if (category.classList.contains("app__category-accessories")) {
+      accessoriesFilter();
       popularFilter();
       render(sortedItems);
     }

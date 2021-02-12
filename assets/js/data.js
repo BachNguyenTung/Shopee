@@ -1,7 +1,8 @@
 //products
 const items = [
   {
-    name: "Giày nam Hot 2020 giày chạy bộ thể thao hoang dã xu hướng mới giày thể thao nam sneaker siêu nhẹ GN304  - A",
+    name:
+      "Giày nam Hot 2020 giày chạy bộ thể thao hoang dã xu hướng mới giày thể thao nam sneaker siêu nhẹ GN304  - A",
     imageUrl: "./assets/img/giay.png",
     price: 400000,
     rating: 5,
@@ -13,59 +14,60 @@ const items = [
   },
   {
     name:
-      "Áo thun tay dài form rộng unisex Wind Basic Long Tea sweater phong cách Ulzzang Wind",
-    imageUrl: "./assets/img/ao.png",
-    price: 140000,
+      "TÚI KẸP NÁCH QUEEN DÂY XÍCH BẢN TO 🔥FREESHIP🔥Túi Đeo Vai kèm dây đeo chéo siêu hot 2020 - DR602",
+    imageUrl: "./assets/img/bag.png",
+    price: 940000,
     rating: 5,
-    soldAmount: 20,
+    soldAmount: 5,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/09/2021"),
-    type:"shirt",
+    type: "bag",
   },
   {
-    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
-    imageUrl: "./assets/img/ao.png",
-    price: 190000,
+    name: "Set Ngố Luffy",
+    imageUrl: "./assets/img/bo.png",
+    price: 490000,
     rating: 5,
     soldAmount: 30,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "set",
   },
   {
-    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
-    imageUrl: "./assets/img/ao.png",
+    name: "Áo khoác dù bomber unisex form rộng 28 nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/giamgia.png",
     price: 170000,
     rating: 5,
     soldAmount: 30,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "discount",
   },
   {
-    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
-    imageUrl: "./assets/img/ao.png",
+    name:
+      "Áo thun tay dài form rộng unisex Wind Basic Long Tea sweater phong cách Ulzzang Wind",
+    imageUrl: "./assets/img/hangmoive.png",
     price: 160000,
     rating: 5,
     soldAmount: 30,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "new",
   },
   {
-    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
-    imageUrl: "./assets/img/ao.png",
+    name: "Nón Vành Nam Nữ Thuê Hoa Cúc",
+    imageUrl: "./assets/img/non.png",
     price: 150000,
     rating: 5,
     soldAmount: 30,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "accessories",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
@@ -76,68 +78,102 @@ const items = [
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
     imageUrl: "./assets/img/ao.png",
-    price: 140000,
+    price: 153000,
     rating: 5,
     soldAmount: 30,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
     imageUrl: "./assets/img/ao.png",
-    price: 140000,
+    price: 176000,
     rating: 5,
     soldAmount: 30,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
     imageUrl: "./assets/img/ao.png",
-    price: 140000,
+    price: 164000,
     rating: 5,
     soldAmount: 30,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
     imageUrl: "./assets/img/ao.png",
-    price: 140000,
+    price: 198000,
     rating: 5,
     soldAmount: 30,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "shirt",
   },
   {
     name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
     imageUrl: "./assets/img/ao.png",
-    price: 140000,
+    price: 142000,
     rating: 5,
     soldAmount: 30,
     freeShip: true,
     location: "TP. Hồ Chí Minh",
     date: new Date("02/08/2021"),
-    type:"shirt",
+    type: "shirt",
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 142000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+    type: "shirt",
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 142000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+    type: "shirt",
+  },
+  {
+    name: "Áo thun sát nách unisex form rộng Trơn tanktop nam nữ ulzzang Wind",
+    imageUrl: "./assets/img/ao.png",
+    price: 142000,
+    rating: 5,
+    soldAmount: 30,
+    freeShip: true,
+    location: "TP. Hồ Chí Minh",
+    date: new Date("02/08/2021"),
+    type: "shirt",
   },
 ];
 
-function render(items){
-  html = items.map(item =>{
-    return(`
+function render(items) {
+  html = items
+    .map((item) => {
+      return `
     <div class="grid__col-2c4x">
     <div class="app__product-item">
       <a href="" class="app__product-link">
@@ -274,10 +310,8 @@ function render(items){
       </a>
     </div>
   </div>
-    `);
-  }).join('');
-  $('.grid__row-product').innerHTML = html;
+    `;
+    })
+    .join("");
+  $(".grid__row-product").innerHTML = html;
 }
-
-
-
