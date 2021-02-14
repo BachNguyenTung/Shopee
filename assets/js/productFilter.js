@@ -1,21 +1,32 @@
+import {
+  renderPaging,
+  renderPageNumber,
+  renderPageIndexIncrement,
+  renderPageIndexDecrement,
+  renderPageIndexDefault,
+} from "./pagination.js";
+import { items } from "./data.js";
+
 let sortedItems = [];
-let tempItems = [...items];
-let defaultItems = [...tempItems];
 let today = new Date();
 const bestSelling = 20;
-//Loaded
+let tempItems = [...items];
+let defaultItems = [...tempItems];
+
+///Loaded
+renderPageNumber();
 defaultCatefilter();
 popularFilter();
-render(sortedItems);
+renderPaging(sortedItems);
 
+///Filter
 //Popular Filter
 function popularFilter() {
   sortedItems = tempItems.filter(
     (item) =>
-      item.date.getDate() > today.getDate() - 7 &&
+      item.date.getDate() > today.getDate() - 30 &&
       item.soldAmount >= bestSelling
   );
-  console.log(sortedItems);
 }
 
 // Best Selling Filter
@@ -26,7 +37,7 @@ function bestSellingFilter() {
 // Date Filter
 function dateFilter() {
   sortedItems = tempItems.filter(
-    (item) => item.date.getDate() > today.getDate() - 7
+    (item) => item.date.getDate() > today.getDate() - 30
   );
 }
 
@@ -83,6 +94,7 @@ function defaultCatefilter() {
   tempItems = [...defaultItems];
 }
 
+///Events
 //Price event
 const inputDefaultLabel = $(".app__input-lable").innerHTML;
 const inputDefaultColor = "var(--text-color)";
@@ -111,12 +123,16 @@ inputSelects.forEach((inputSelect, index) => {
 
 $(".app__price-asc").addEventListener("click", () => {
   priceAscFilter();
-  render(sortedItems);
+  renderPageIndexDefault();
+  renderPageNumber();
+  renderPaging(sortedItems);
 });
 
 $(".app__price-desc").addEventListener("click", () => {
   priceDescFilter();
-  render(sortedItems);
+  renderPageIndexDefault();
+  renderPageNumber();
+  renderPaging(sortedItems);
 });
 
 //Popular+Newest+Date event
@@ -127,15 +143,21 @@ filterButtons.forEach((filterButton, index) => {
     filterButton.classList.add("btn--active");
     if (filterButton.classList.contains("app__filter-popular")) {
       popularFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
     if (filterButton.classList.contains("app__filter-newest")) {
       dateFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
     if (filterButton.classList.contains("app__filter-bestSell")) {
       bestSellingFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
 
     //Set default input label
@@ -156,7 +178,7 @@ filterButtons.forEach((filterButton, index) => {
   });
 });
 
-//app__category-list
+//Category event
 const categories = [...$$(".app__category-item")];
 categories.forEach((category, index) => {
   category.addEventListener("click", () => {
@@ -171,53 +193,69 @@ categories.forEach((category, index) => {
     if (category.classList.contains("app__category-default")) {
       defaultCatefilter();
       popularFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-shirt")) {
       shirtFilter();
       popularFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-shoe")) {
       shoeFilter();
       popularFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-bag")) {
       bagFilter();
       popularFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-set")) {
       setFilter();
       popularFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-discount")) {
       discountFilter();
       popularFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-new")) {
       newFilter();
       popularFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-accessories")) {
       accessoriesFilter();
       popularFilter();
-      render(sortedItems);
+      renderPageIndexDefault();
+      renderPageNumber();
+      renderPaging(sortedItems);
     }
     //Set default Popular+Newest+Date
     $(".app__filter-item.btn--active").classList.remove("btn--active");
-    $('.app__filter-popular').classList.add("btn--active");
+    $(".app__filter-popular").classList.add("btn--active");
     //Set default input label
     $(".app__input-lable").innerHTML = inputDefaultLabel;
     $(".app__input-lable").style.color = inputDefaultColor;
@@ -234,4 +272,17 @@ categories.forEach((category, index) => {
       ".app__price-default"
     ).innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
   });
+});
+
+//Change Page event
+$(".app__pre-page").addEventListener("click", (e) => {
+  renderPageIndexDecrement();
+  renderPageNumber();
+  renderPaging(sortedItems);
+});
+
+$(".app__next-page").addEventListener("click", (e) => {
+  renderPageIndexIncrement();
+  renderPageNumber();
+  renderPaging(sortedItems);
 });

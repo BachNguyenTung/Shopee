@@ -758,7 +758,7 @@ header {
   position: relative;
 }
 
-.app__price-default{
+.app__price-default {
   display: none;
 }
 
@@ -769,7 +769,7 @@ header {
 .app__input-item-icon {
   position: absolute;
   right: -1rem;
-  color:var(--primary-color);
+  color: var(--primary-color);
 }
 
 .app__input-item:hover {
@@ -784,12 +784,12 @@ header {
   display: flex;
 }
 
-.app__page-number {
+.app__page-index {
   color: var(--primary-color);
 }
 
 .app__pre-page,
-.app_next-page {
+.app__next-page {
   width: 3.6rem;
   text-align: center;
   border: none;
@@ -798,6 +798,7 @@ header {
   border-radius: 0.2rem;
   text-decoration: none;
   display: inline-block;
+  cursor: pointer;
 }
 
 .app__pre-page {
@@ -805,16 +806,14 @@ header {
   margin-right: 0.1rem;
 }
 
-.app__pre-page--disabled {
+.app__pre-page--disabled,
+.app__next-page--disabled {
   background-color: #f9f9f9;
+  cursor:default;
 }
 
 .app__pre-page--disabled .app__pre-icon {
   color: #eee;
-}
-
-.app__next-page--disabled {
-  background-color: #f9f9f9;
 }
 
 .app__next-page--disabled .app__next-icon {

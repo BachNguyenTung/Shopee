@@ -288,7 +288,9 @@
                   <i class="app__heading-icon bi bi-list-ul"></i>Danh mục
                 </div>
                 <ul class="app__category-list">
-                  <li class="app__category-item app__category-default app__category-item--active">
+                  <li
+                    class="app__category-item app__category-default app__category-item--active"
+                  >
                     <div class="app__item-icon"></div>
                     <div class="app__item-link">Sản phẩm</div>
                   </li>
@@ -321,42 +323,55 @@
                 <div class="app__filter-label">Sắp xếp theo</div>
                 <div class="app__filter-list">
                   <!-- active: btn--active -->
-                  <button class="btn app__filter-item app__filter-popular btn--active ">
+                  <button
+                    class="btn app__filter-item app__filter-popular btn--active"
+                  >
                     Phổ biến
                   </button>
-                  <button class="btn app__filter-item app__filter-newest">Mới nhất</button>
-                  <button class="btn app__filter-item app__filter-bestSell">Bán chạy</button>
+                  <button class="btn app__filter-item app__filter-newest">
+                    Mới nhất
+                  </button>
+                  <button class="btn app__filter-item app__filter-bestSell">
+                    Bán chạy
+                  </button>
                   <div class="select-input">
                     <span class="app__input-lable">Giá</span>
                     <i class="app__input-icon bi bi-chevron-down"></i>
                     <ul class="app__input-list">
                       <!-- icon: <i class="app__input-item-icon bi bi-check"></i> -->
                       <!-- active: app__input-item--active  -->
-                      <li class="app__input-item app__price-default app__input-item--active">Giá<i class="app__input-item-icon bi bi-check"></i></li>
-                      <li class="app__input-item app__price-asc">Giá: Thấp đến Cao</li>
-                      <li class="app__input-item app__price-desc">Giá: Cao đến Thấp</li>
+                      <li
+                        class="app__input-item app__price-default app__input-item--active"
+                      >
+                        Giá<i class="app__input-item-icon bi bi-check"></i>
+                      </li>
+                      <li class="app__input-item app__price-asc">
+                        Giá: Thấp đến Cao
+                      </li>
+                      <li class="app__input-item app__price-desc">
+                        Giá: Cao đến Thấp
+                      </li>
                     </ul>
                   </div>
                 </div>
                 <div class="app__filter-page">
-                  <span class="app__page-number">1</span>/<span
+                  <div class="app__page-number">
+                    <!-- <span class="app__page-index">1</span>/<span
                     class="app__page-page-total"
                     >6</span
-                  >
-                  <!--  app__pre-page--disabled -->
-                  <a href="" class="app__pre-page app__pre-page--disabled">
+                  > -->
+                    <!--  app__pre-page--disabled -->
+                  </div>
+                  <div class="app__filter-page-item app__pre-page app__pre-page--disabled">
                     <i class="app__pre-icon bi bi-chevron-left"></i>
-                  </a>
-                  <!-- app__next-page--disabled -->
-                  <a href="" class="app_next-page">
+                  </div>
+                  <div class="app__filter-page-item app__next-page">
                     <i class="app__next-icon bi bi-chevron-right"></i>
-                  </a>
+                  </div>
                 </div>
                 <!-- product -->
               </div>
-              <div class="grid__row grid__row-product">
-                
-              </div>
+              <div class="grid__row grid__row-product"></div>
               <ul class="pagination pagination--mtb3">
                 <li class="pagination-item">
                   <a href="" class="pagination-item__link">
@@ -592,7 +607,8 @@
       </footer>
     </div>
     <script src="./assets/js/helper.js"></script>
-    <script src="./assets/js/data.js"></script>
-    <script src="./assets/js/productFilter.js"></script>
+    <script type="module" src="./assets/js/data.js"></script>
+    <script type="module" src="./assets/js/productFilter.js"></script>
+    <script type="module" src="./assets/js/pagination.js"></script>
   </body>
 </html>
