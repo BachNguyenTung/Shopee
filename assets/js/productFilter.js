@@ -4,25 +4,29 @@ import {
   renderPageIndexIncrement,
   renderPageIndexDecrement,
   renderPageIndexDefault,
+  renderPagination,
+  changePageIndex,
+  changePageTotal,
 } from "./pagination.js";
-import { items } from "./data.js";
+import { items, state } from "./data.js";
 
 let sortedItems = [];
 let today = new Date();
 const bestSelling = 20;
 let tempItems = [...items];
-let defaultItems = [...tempItems];
 
 ///Loaded
-renderPageNumber();
 defaultCatefilter();
 popularFilter();
+changePageTotal(sortedItems);
+renderPageNumber(sortedItems.length);
+renderPagination(sortedItems.length);
 renderPaging(sortedItems);
 
 ///Filter
 //Popular Filter
 function popularFilter() {
-  sortedItems = tempItems.filter(
+  sortedItems = sortedItems.filter(
     (item) =>
       item.date.getDate() > today.getDate() - 30 &&
       item.soldAmount >= bestSelling
@@ -31,23 +35,29 @@ function popularFilter() {
 
 // Best Selling Filter
 function bestSellingFilter() {
-  sortedItems = tempItems.filter((item) => item.soldAmount >= bestSelling);
+  sortedItems = sortedItems.filter((item) => item.soldAmount >= bestSelling);
 }
 
 // Date Filter
 function dateFilter() {
-  sortedItems = tempItems.filter(
+  sortedItems = sortedItems.filter(
     (item) => item.date.getDate() > today.getDate() - 30
   );
 }
 
 //Price filter
 function priceAscFilter() {
+  if (sortedItems.length == 1) {
+    return;
+  }
   sortedItems = sortedItems.sort(
     (a, b) => parseFloat(a.price) - parseFloat(b.price)
   );
 }
 function priceDescFilter() {
+  if (sortedItems.length == 1) {
+    return;
+  }
   sortedItems = sortedItems.sort(
     (a, b) => parseFloat(b.price) - parseFloat(a.price)
   );
@@ -55,43 +65,34 @@ function priceDescFilter() {
 
 //Category filter
 function shoeFilter() {
-  sortedItems = sortedItems.filter((item) => item.type == "shoe");
-  tempItems = defaultItems.filter((item) => item.type == "shoe");
+  sortedItems = tempItems.filter((item) => item.type == "shoe");
 }
 
 function shirtFilter() {
-  sortedItems = sortedItems.filter((item) => item.type == "shirt");
-  tempItems = defaultItems.filter((item) => item.type == "shirt");
+  sortedItems = tempItems.filter((item) => item.type == "shirt");
 }
 
 function bagFilter() {
-  sortedItems = sortedItems.filter((item) => item.type == "bag");
-  tempItems = defaultItems.filter((item) => item.type == "bag");
+  sortedItems = tempItems.filter((item) => item.type == "bag");
 }
 
 function setFilter() {
-  sortedItems = sortedItems.filter((item) => item.type == "set");
-  tempItems = defaultItems.filter((item) => item.type == "set");
+  sortedItems = tempItems.filter((item) => item.type == "set");
 }
-
 function discountFilter() {
-  sortedItems = sortedItems.filter((item) => item.type == "discount");
-  tempItems = defaultItems.filter((item) => item.type == "discount");
+  sortedItems = tempItems.filter((item) => item.type == "discount");
 }
 
 function newFilter() {
-  sortedItems = sortedItems.filter((item) => item.type == "new");
-  tempItems = defaultItems.filter((item) => item.type == "new");
+  sortedItems = tempItems.filter((item) => item.type == "new");
 }
-
 function accessoriesFilter() {
-  sortedItems = sortedItems.filter((item) => item.type == "accessories");
-  tempItems = defaultItems.filter((item) => item.type == "accessories");
+  sortedItems = tempItems.filter((item) => item.type == "accessories");
 }
 
 function defaultCatefilter() {
   //sortedItem -> default
-  tempItems = [...defaultItems];
+  sortedItems = [...tempItems];
 }
 
 ///Events
@@ -123,15 +124,19 @@ inputSelects.forEach((inputSelect, index) => {
 
 $(".app__price-asc").addEventListener("click", () => {
   priceAscFilter();
-  renderPageIndexDefault();
-  renderPageNumber();
+  changePageTotal(sortedItems);
+  renderPageNumber(sortedItems.length);
+  renderPagination(sortedItems.length);
+  renderPageIndexDefault(sortedItems.length);
   renderPaging(sortedItems);
 });
 
 $(".app__price-desc").addEventListener("click", () => {
   priceDescFilter();
-  renderPageIndexDefault();
-  renderPageNumber();
+  changePageTotal(sortedItems);
+  renderPageNumber(sortedItems.length);
+  renderPagination(sortedItems.length);
+  renderPageIndexDefault(sortedItems.length);
   renderPaging(sortedItems);
 });
 
@@ -143,20 +148,26 @@ filterButtons.forEach((filterButton, index) => {
     filterButton.classList.add("btn--active");
     if (filterButton.classList.contains("app__filter-popular")) {
       popularFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
     if (filterButton.classList.contains("app__filter-newest")) {
       dateFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
     if (filterButton.classList.contains("app__filter-bestSell")) {
       bestSellingFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
 
@@ -192,65 +203,81 @@ categories.forEach((category, index) => {
     category.innerHTML += `<div class="app__item-icon"></div>`;
     if (category.classList.contains("app__category-default")) {
       defaultCatefilter();
-      popularFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      popularFilter(sortedItems.length);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-shirt")) {
       shirtFilter();
       popularFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-shoe")) {
       shoeFilter();
       popularFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-bag")) {
       bagFilter();
       popularFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-set")) {
       setFilter();
       popularFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-discount")) {
       discountFilter();
       popularFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-new")) {
       newFilter();
       popularFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
 
     if (category.classList.contains("app__category-accessories")) {
       accessoriesFilter();
       popularFilter();
-      renderPageIndexDefault();
-      renderPageNumber();
+      changePageTotal(sortedItems);
+      renderPageNumber(sortedItems.length);
+      renderPagination(sortedItems.length);
+      renderPageIndexDefault(sortedItems.length);
       renderPaging(sortedItems);
     }
     //Set default Popular+Newest+Date
@@ -275,14 +302,68 @@ categories.forEach((category, index) => {
 });
 
 //Change Page event
+
 $(".app__pre-page").addEventListener("click", (e) => {
-  renderPageIndexDecrement();
-  renderPageNumber();
+  let pageIndex = renderPageIndexDecrement();
+  renderPageNumber(sortedItems.length);
   renderPaging(sortedItems);
+  const paginationNumberItems = [...$$(".pagination-number")];
+  paginationNumberItems.forEach((paginationNumberItem, index) => {
+    paginationNumberItem.classList.remove("pagination-number--active");
+    if (pageIndex == index + 1)
+      paginationNumberItem.classList.add("pagination-number--active");
+  });
 });
 
 $(".app__next-page").addEventListener("click", (e) => {
-  renderPageIndexIncrement();
-  renderPageNumber();
+  let pageIndex = renderPageIndexIncrement();
+  renderPageNumber(sortedItems.length);
   renderPaging(sortedItems);
+  const paginationNumberItems = [...$$(".pagination-number")];
+  paginationNumberItems.forEach((paginationNumberItem, index) => {
+    paginationNumberItem.classList.remove("pagination-number--active");
+    if (pageIndex == index + 1)
+      paginationNumberItem.classList.add("pagination-number--active");
+  });
 });
+
+export default function paginationAddEvent() {
+  const paginationNumberItems = [...$$(".pagination-number")];
+  paginationNumberItems.forEach((paginationNumberItem, index) => {
+    paginationNumberItem.addEventListener("click", () => {
+      changePageIndex(index + 1);
+      renderPaging(sortedItems);
+      $(".pagination-number.pagination-number--active").classList.remove(
+        "pagination-number--active"
+      );
+      paginationNumberItem.classList.add("pagination-number--active");
+      renderPageNumber(sortedItems.length);
+    });
+  });
+
+  $(".pagination-item__left").addEventListener("click", (e) => {
+    let pageIndex = renderPageIndexDecrement();
+    renderPageNumber(sortedItems.length);
+    changePageIndex(pageIndex);
+    renderPaging(sortedItems);
+    const paginationNumberItems = [...$$(".pagination-number")];
+    paginationNumberItems.forEach((paginationNumberItem, index) => {
+      paginationNumberItem.classList.remove("pagination-number--active");
+      if (pageIndex == index + 1)
+        paginationNumberItem.classList.add("pagination-number--active");
+    });
+  });
+  $(".pagination-item__right").addEventListener("click", (e) => {
+    let pageIndex = renderPageIndexIncrement();
+    renderPageNumber(sortedItems.length);
+    changePageIndex(pageIndex);
+    renderPaging(sortedItems);
+    const paginationNumberItems = [...$$(".pagination-number")];
+    paginationNumberItems.forEach((paginationNumberItem, index) => {
+      paginationNumberItem.classList.remove("pagination-number--active");
+      if (pageIndex == index + 1)
+        paginationNumberItem.classList.add("pagination-number--active");
+    });
+  });
+  
+}

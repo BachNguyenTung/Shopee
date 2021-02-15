@@ -1,8 +1,8 @@
-import { items } from "./data.js";
+import pageNumberAddEvent from "./productFilter.js";
 
 let pageSize = 10;
 let pageIndex = 1;
-let pageTotal = Math.ceil(items.length / 10);
+let pageTotal;
 let html = "";
 
 export function renderPaging(items) {
@@ -150,10 +150,17 @@ export function renderPaging(items) {
     })
     .join("");
   $(".grid__row-product").innerHTML = html;
-  console.log(items);
 }
 
-export function renderPageNumber() {
+export function renderPageNumber(total) {
+  if (total <= pageSize) {
+    $(".app__page-number").innerHTML = ``;
+    $(".app__pre-page").style.display = "none";
+    $(".app__next-page").style.display = "none";
+    return;
+  }
+  $(".app__pre-page").style.display = "block";
+  $(".app__next-page").style.display = "block";
   html = `
         <span class="app__page-index">${pageIndex}</span>/<span
                         class="app__page-page-total"
@@ -169,6 +176,7 @@ export function renderPageIndexIncrement() {
     pageIndex = pageTotal;
     $(".app__next-page").classList.add("app__next-page--disabled");
   }
+  return pageIndex;
 }
 
 export function renderPageIndexDecrement() {
@@ -178,11 +186,76 @@ export function renderPageIndexDecrement() {
     pageIndex = 1;
     $(".app__pre-page").classList.add("app__pre-page--disabled");
   }
+  return pageIndex;
 }
 
-export function renderPageIndexDefault() {
+export function renderPageIndexDefault(total) {
+  if (total <= pageSize) {
+    return;
+  }
   pageIndex = 1;
   $(".app__next-page").classList.remove("app__next-page--disabled");
   $(".app__pre-page").classList.add("app__pre-page--disabled");
+  $(".pagination-number.pagination-number--active").classList.remove(
+    "pagination-number--active"
+  );
+  $(".pagination-number").classList.add("pagination-number--active");
+}
+
+export function renderPagination(total) {
+  if (total <= pageSize) {
+    $(".pagination").innerHTML = ``;
+    return;
+  }
+  let paginationPageIndex = ``;
+  for (let index = 1; index <= pageTotal; index++) {
+    if (index == 1) {
+      paginationPageIndex += `
+    <li class="pagination-number pagination-number--active">
+                    <div class="pagination-item__link">${1}</div>
+                  </li>
+                  `;
+    } else {
+      paginationPageIndex += `
+      <li class="pagination-number">
+                      <div class="pagination-item__link">${index}</div>
+                    </li>
+      `;
+    }
+  }
+  html = `
+    <li class="pagination-item pagination-item__left">
+      <div class="pagination-item__link">
+        <i class="pagination-item__icon bi bi-chevron-left"></i>
+      </div>
+    </li>
+    ${paginationPageIndex}
+    <li class="pagination-item pagination-item__right">
+      <div class="pagination-item__link">
+        <i class="pagination-item__icon bi bi-chevron-right"></i
+      ></div>
+    </li>
+        `;
+  $(".pagination").innerHTML = html;
+  pageNumberAddEvent();
+}
+export function changePageIndex(value) {
+  pageIndex = value;
+  if (pageIndex > 1 && pageIndex < pageTotal) {
+    $(".app__pre-page").classList.remove("app__pre-page--disabled");
+    $(".app__next-page").classList.remove("app__next-page--disabled");
+  } else if (pageIndex == 1) {
+    $(".app__next-page").classList.remove("app__next-page--disabled");
+    $(".app__pre-page").classList.add("app__pre-page--disabled");
+  } else if (pageIndex == pageTotal) {
+    $(".app__pre-page").classList.remove("app__pre-page--disabled");
+    $(".app__next-page").classList.add("app__next-page--disabled");
+  }
+}
+export function changePageTotal(value) {
+  pageTotal =
+    Math.ceil(value.length / pageSize) < 1
+      ? 1
+      : Math.ceil(value.length / pageSize);
 }
 //  only run at start atm , import start end to data render,
