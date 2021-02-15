@@ -10,10 +10,11 @@ import {
 } from "./pagination.js";
 import { items, state } from "./data.js";
 
+let categoryItems = [];
 let sortedItems = [];
+let tempItems = [...items];
 let today = new Date();
 const bestSelling = 20;
-let tempItems = [...items];
 
 ///Loaded
 defaultCatefilter();
@@ -26,21 +27,21 @@ renderPaging(sortedItems);
 ///Filter
 //Popular Filter
 function popularFilter() {
-  sortedItems = sortedItems.filter(
+  sortedItems = categoryItems.filter(
     (item) =>
-      item.date.getDate() > today.getDate() - 30 &&
+      item.date.getDate() > today.getDate() - 30 ||
       item.soldAmount >= bestSelling
   );
 }
 
 // Best Selling Filter
 function bestSellingFilter() {
-  sortedItems = sortedItems.filter((item) => item.soldAmount >= bestSelling);
+  sortedItems = categoryItems.filter((item) => item.soldAmount >= bestSelling);
 }
 
 // Date Filter
 function dateFilter() {
-  sortedItems = sortedItems.filter(
+  sortedItems = categoryItems.filter(
     (item) => item.date.getDate() > today.getDate() - 30
   );
 }
@@ -66,33 +67,41 @@ function priceDescFilter() {
 //Category filter
 function shoeFilter() {
   sortedItems = tempItems.filter((item) => item.type == "shoe");
+  categoryItems = [...sortedItems];
 }
 
 function shirtFilter() {
   sortedItems = tempItems.filter((item) => item.type == "shirt");
+  categoryItems = [...sortedItems];
 }
 
 function bagFilter() {
   sortedItems = tempItems.filter((item) => item.type == "bag");
+  categoryItems = [...sortedItems];
 }
 
 function setFilter() {
   sortedItems = tempItems.filter((item) => item.type == "set");
+  categoryItems = [...sortedItems];
 }
 function discountFilter() {
   sortedItems = tempItems.filter((item) => item.type == "discount");
+  categoryItems = [...sortedItems];
 }
 
 function newFilter() {
   sortedItems = tempItems.filter((item) => item.type == "new");
+  categoryItems = [...sortedItems];
 }
 function accessoriesFilter() {
   sortedItems = tempItems.filter((item) => item.type == "accessories");
+  categoryItems = [...sortedItems];
 }
 
 function defaultCatefilter() {
   //sortedItem -> default
-  sortedItems = [...tempItems];
+  sortedItems= [...tempItems];
+  categoryItems = [...sortedItems];
 }
 
 ///Events
@@ -203,6 +212,7 @@ categories.forEach((category, index) => {
     category.innerHTML += `<div class="app__item-icon"></div>`;
     if (category.classList.contains("app__category-default")) {
       defaultCatefilter();
+      changePageIndex(1);
       changePageTotal(sortedItems);
       popularFilter(sortedItems.length);
       renderPageNumber(sortedItems.length);
@@ -214,6 +224,7 @@ categories.forEach((category, index) => {
     if (category.classList.contains("app__category-shirt")) {
       shirtFilter();
       popularFilter();
+      changePageIndex(1);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
       renderPagination(sortedItems.length);
@@ -224,6 +235,7 @@ categories.forEach((category, index) => {
     if (category.classList.contains("app__category-shoe")) {
       shoeFilter();
       popularFilter();
+      changePageIndex(1);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
       renderPagination(sortedItems.length);
@@ -234,6 +246,7 @@ categories.forEach((category, index) => {
     if (category.classList.contains("app__category-bag")) {
       bagFilter();
       popularFilter();
+      changePageIndex(1);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
       renderPagination(sortedItems.length);
@@ -244,6 +257,7 @@ categories.forEach((category, index) => {
     if (category.classList.contains("app__category-set")) {
       setFilter();
       popularFilter();
+      changePageIndex(1);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
       renderPagination(sortedItems.length);
@@ -254,6 +268,7 @@ categories.forEach((category, index) => {
     if (category.classList.contains("app__category-discount")) {
       discountFilter();
       popularFilter();
+      changePageIndex(1);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
       renderPagination(sortedItems.length);
@@ -264,6 +279,7 @@ categories.forEach((category, index) => {
     if (category.classList.contains("app__category-new")) {
       newFilter();
       popularFilter();
+      changePageIndex(1);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
       renderPagination(sortedItems.length);
@@ -274,6 +290,7 @@ categories.forEach((category, index) => {
     if (category.classList.contains("app__category-accessories")) {
       accessoriesFilter();
       popularFilter();
+      changePageIndex(1);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
       renderPagination(sortedItems.length);
@@ -365,5 +382,4 @@ export default function paginationAddEvent() {
         paginationNumberItem.classList.add("pagination-number--active");
     });
   });
-  
 }
