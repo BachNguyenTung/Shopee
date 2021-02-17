@@ -1,4 +1,4 @@
-import pageNumberAddEvent from "./productFilter.js";
+import paginationAddEvent from "./productFilter.js";
 
 let pageSize = 10;
 let pageIndex = 1;
@@ -207,22 +207,59 @@ export function renderPagination(total) {
     $(".pagination").innerHTML = ``;
     return;
   }
-  let paginationPageIndex = ``;
-  for (let index = 1; index <= pageTotal; index++) {
-    if (index == 1) {
-      paginationPageIndex += `
-    <li class="pagination-number pagination-number--active">
-                    <div class="pagination-item__link">${1}</div>
-                  </li>
-                  `;
-    } else {
-      paginationPageIndex += `
-      <li class="pagination-number">
+  let paginationPageIndex = `
+    <li value="1" class="pagination-number pagination-number--active">
+      <div class="pagination-item__link">1</div>
+    </li>
+    <li value="2" class="pagination-number">
+      <div class="pagination-item__link">2</div>
+    </li>
+  `;
+  // if (pageIndex >= 6) {
+  //   paginationPageIndex += `
+  //     <li class="pagination-item pagination-item--non-click">
+  //                     <div class="pagination-item__link">...</div>
+  //                   </li>
+  //     `;
+  // }
+  for (let index = 3; index <= pageTotal; index++) {
+    //index =3
+    paginationPageIndex += `
+      <li value="${index}" class="pagination-number">
                       <div class="pagination-item__link">${index}</div>
                     </li>
       `;
-    }
+    // if (pageIndex <= 5 && index <= 5) {
+    //   paginationPageIndex += `
+    //   <li value="${index}" class="pagination-number">
+    //                   <div class="pagination-item__link">${index}</div>
+    //                 </li>
+    //   `;
+    // } else if (pageIndex >= pageTotal - 2 && index >= 5) {
+    //   paginationPageIndex += `
+    //   <li value="${index}" class="pagination-number">
+    //                   <div class="pagination-item__link">${index}</div>
+    //                 </li>
+    //   `;
+    // } else if (
+    //   pageIndex >= 5 &&
+    //   index <= pageIndex + 2 &&
+    //   index >= pageIndex - 2
+    // ) {
+    //   paginationPageIndex += `
+    //   <li  value="${index}" class="pagination-number">
+    //                   <div class="pagination-item__link">${index}</div>
+    //                 </li>
+    //   `;
+    // }
   }
+  // if (pageTotal > 5 && pageIndex <= pageTotal - 3) {
+  //   paginationPageIndex += `
+  //     <li class="pagination-item pagination-item--non-click">
+  //                     <div class="pagination-item__link">...</div>
+  //                   </li>
+  //     `;
+  // }
   html = `
     <li class="pagination-item pagination-item__left">
       <div class="pagination-item__link">
@@ -237,7 +274,7 @@ export function renderPagination(total) {
     </li>
         `;
   $(".pagination").innerHTML = html;
-  pageNumberAddEvent();
+  paginationAddEvent();
 }
 export function changePageIndex(value) {
   pageIndex = value;
@@ -251,6 +288,7 @@ export function changePageIndex(value) {
     $(".app__pre-page").classList.remove("app__pre-page--disabled");
     $(".app__next-page").classList.add("app__next-page--disabled");
   }
+  return pageIndex;
 }
 export function changePageTotal(value) {
   pageTotal =

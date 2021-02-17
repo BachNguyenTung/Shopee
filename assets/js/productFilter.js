@@ -100,7 +100,7 @@ function accessoriesFilter() {
 
 function defaultCatefilter() {
   //sortedItem -> default
-  sortedItems= [...tempItems];
+  sortedItems = [...tempItems];
   categoryItems = [...sortedItems];
 }
 
@@ -324,6 +324,7 @@ $(".app__pre-page").addEventListener("click", (e) => {
   let pageIndex = renderPageIndexDecrement();
   renderPageNumber(sortedItems.length);
   renderPaging(sortedItems);
+  // renderPagination(sortedItems.length);
   const paginationNumberItems = [...$$(".pagination-number")];
   paginationNumberItems.forEach((paginationNumberItem, index) => {
     paginationNumberItem.classList.remove("pagination-number--active");
@@ -336,6 +337,7 @@ $(".app__next-page").addEventListener("click", (e) => {
   let pageIndex = renderPageIndexIncrement();
   renderPageNumber(sortedItems.length);
   renderPaging(sortedItems);
+  // renderPagination(sortedItems.length);
   const paginationNumberItems = [...$$(".pagination-number")];
   paginationNumberItems.forEach((paginationNumberItem, index) => {
     paginationNumberItem.classList.remove("pagination-number--active");
@@ -346,15 +348,19 @@ $(".app__next-page").addEventListener("click", (e) => {
 
 export default function paginationAddEvent() {
   const paginationNumberItems = [...$$(".pagination-number")];
-  paginationNumberItems.forEach((paginationNumberItem, index) => {
+  paginationNumberItems.forEach((paginationNumberItem) => {
     paginationNumberItem.addEventListener("click", () => {
-      changePageIndex(index + 1);
+      console.log(paginationNumberItem);
+      let pageIndex = changePageIndex(paginationNumberItem.value);
       renderPaging(sortedItems);
+      renderPageNumber(sortedItems.length);
+      // renderPagination(sortedItems.length);
       $(".pagination-number.pagination-number--active").classList.remove(
         "pagination-number--active"
       );
-      paginationNumberItem.classList.add("pagination-number--active");
-      renderPageNumber(sortedItems.length);
+      paginationNumberItem.classList.add("pagination-number--active"); // K sd dc khi render lai pagination
+      console.log(pageIndex);
+      const items = [...$$(".pagination-number")];
     });
   });
 
@@ -363,6 +369,7 @@ export default function paginationAddEvent() {
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
     renderPaging(sortedItems);
+    // renderPagination(sortedItems.length);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
       paginationNumberItem.classList.remove("pagination-number--active");
@@ -375,6 +382,7 @@ export default function paginationAddEvent() {
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
     renderPaging(sortedItems);
+    // renderPagination(sortedItems.length);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
       paginationNumberItem.classList.remove("pagination-number--active");
