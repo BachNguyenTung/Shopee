@@ -1,11 +1,12 @@
-import paginationAddEvent from "./productFilter.js";
+import paginationAddEvent from "./productFilterAndEvent.js";
 
 let pageSize = 10;
-let pageIndex = 1;
+export let pageIndex = 1;
 let pageTotal;
 let html = "";
 
-export function renderPaging(items) {
+//Render sp theo pagination
+export function renderPagingItems(items) {
   items = items.slice((pageIndex - 1) * pageSize, pageIndex * pageSize);
   html = items
     .map((item, index) => {
@@ -152,6 +153,7 @@ export function renderPaging(items) {
   $(".grid__row-product").innerHTML = html;
 }
 
+//Render số trang trên tổng số ex: 1/10
 export function renderPageNumber(total) {
   if (total <= pageSize) {
     $(".app__page-number").innerHTML = ``;
@@ -169,7 +171,8 @@ export function renderPageNumber(total) {
   $(".app__page-number").innerHTML = html;
 }
 
-export function renderPageIndexIncrement() {
+//Tăng trang hiện tại
+export function increPageIndex() {
   pageIndex++;
   $(".app__pre-page").classList.remove("app__pre-page--disabled");
   if (pageIndex >= pageTotal) {
@@ -179,7 +182,8 @@ export function renderPageIndexIncrement() {
   return pageIndex;
 }
 
-export function renderPageIndexDecrement() {
+//Giảm trang hiện tại
+export function decrePageIndex() {
   pageIndex--;
   $(".app__next-page").classList.remove("app__next-page--disabled");
   if (pageIndex <= 1) {
@@ -189,20 +193,8 @@ export function renderPageIndexDecrement() {
   return pageIndex;
 }
 
-export function renderPageIndexDefault(total) {
-  if (total <= pageSize) {
-    return;
-  }
-  pageIndex = 1;
-  $(".app__next-page").classList.remove("app__next-page--disabled");
-  $(".app__pre-page").classList.add("app__pre-page--disabled");
-  $(".pagination-number.pagination-number--active").classList.remove(
-    "pagination-number--active"
-  );
-  $(".pagination-number").classList.add("pagination-number--active");
-}
-
-export function renderPagination(total) {
+//render thanh pagination
+export function renderPaginationBar(total) {
   if (total <= pageSize) {
     $(".pagination").innerHTML = ``;
     return;
@@ -215,51 +207,60 @@ export function renderPagination(total) {
       <div class="pagination-item__link">2</div>
     </li>
   `;
-  // if (pageIndex >= 6) {
-  //   paginationPageIndex += `
-  //     <li class="pagination-item pagination-item--non-click">
-  //                     <div class="pagination-item__link">...</div>
-  //                   </li>
-  //     `;
-  // }
-  for (let index = 3; index <= pageTotal; index++) {
-    //index =3
+  //Hiện ... khi quá 5 trnag đầu
+  if (pageIndex >= 6) {
     paginationPageIndex += `
+      <li class="pagination-item pagination-item--non-click">
+                      <div class="pagination-item__link">...</div>
+                    </li>
+      `;
+  }
+  for (let index = 3; index <= pageTotal; index++) {
+    //origin
+    // paginationPageIndex += `
+    //   <li value="${index}" class="pagination-number">
+    //                   <div class="pagination-item__link">${index}</div>
+    //                 </li>
+    //   `;
+
+    //Hiện 5 trang đầu
+    if (pageIndex <= 5 && index <= 5) {
+      paginationPageIndex += `
       <li value="${index}" class="pagination-number">
                       <div class="pagination-item__link">${index}</div>
                     </li>
       `;
-    // if (pageIndex <= 5 && index <= 5) {
-    //   paginationPageIndex += `
-    //   <li value="${index}" class="pagination-number">
-    //                   <div class="pagination-item__link">${index}</div>
-    //                 </li>
-    //   `;
-    // } else if (pageIndex >= pageTotal - 2 && index >= 5) {
-    //   paginationPageIndex += `
-    //   <li value="${index}" class="pagination-number">
-    //                   <div class="pagination-item__link">${index}</div>
-    //                 </li>
-    //   `;
-    // } else if (
-    //   pageIndex >= 5 &&
-    //   index <= pageIndex + 2 &&
-    //   index >= pageIndex - 2
-    // ) {
-    //   paginationPageIndex += `
-    //   <li  value="${index}" class="pagination-number">
-    //                   <div class="pagination-item__link">${index}</div>
-    //                 </li>
-    //   `;
-    // }
+    }
+    //Hiện 5 trang giữa
+    else if (
+      pageIndex >= 5 &&
+      index <= pageIndex + 2 &&
+      index >= pageIndex - 2
+    ) {
+      paginationPageIndex += `
+      <li  value="${index}" class="pagination-number">
+                      <div class="pagination-item__link">${index}</div>
+                    </li>
+      `;
+    }
+    //Hiện 5 trang cuối
+    else if (pageIndex >= pageTotal - 2 && index > pageTotal - 5) {
+      paginationPageIndex += `
+      <li value="${index}" class="pagination-number">
+                      <div class="pagination-item__link">${index}</div>
+                    </li>
+      `;
+    }
   }
-  // if (pageTotal > 5 && pageIndex <= pageTotal - 3) {
-  //   paginationPageIndex += `
-  //     <li class="pagination-item pagination-item--non-click">
-  //                     <div class="pagination-item__link">...</div>
-  //                   </li>
-  //     `;
-  // }
+  //Hiện ... khi quá 5 trang cuối
+  if (pageTotal > 5 && pageIndex <= pageTotal - 3) {
+    paginationPageIndex += `
+      <li class="pagination-item pagination-item--non-click">
+                      <div class="pagination-item__link">...</div>
+                    </li>
+      `;
+  }
+
   html = `
     <li class="pagination-item pagination-item__left">
       <div class="pagination-item__link">
@@ -274,8 +275,19 @@ export function renderPagination(total) {
     </li>
         `;
   $(".pagination").innerHTML = html;
+  if (pageIndex == 1) {
+    $(".app__next-page").classList.remove("app__next-page--disabled");
+    $(".app__pre-page").classList.add("app__pre-page--disabled");
+    $(".pagination-number.pagination-number--active").classList.remove(
+      "pagination-number--active"
+    );
+    $(".pagination-number").classList.add("pagination-number--active");
+  }
+  //Add lai event click khi render
   paginationAddEvent();
 }
+
+//Thay đổi số trang hiện tại
 export function changePageIndex(value) {
   pageIndex = value;
   if (pageIndex > 1 && pageIndex < pageTotal) {
@@ -290,6 +302,8 @@ export function changePageIndex(value) {
   }
   return pageIndex;
 }
+
+//Thay đổi tổng số trang
 export function changePageTotal(value) {
   pageTotal =
     Math.ceil(value.length / pageSize) < 1

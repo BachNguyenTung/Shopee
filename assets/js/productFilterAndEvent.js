@@ -1,28 +1,31 @@
 import {
-  renderPaging,
+  pageIndex,
+  renderPagingItems,
   renderPageNumber,
-  renderPageIndexIncrement,
-  renderPageIndexDecrement,
-  renderPageIndexDefault,
-  renderPagination,
+  increPageIndex,
+  decrePageIndex,
+  renderPaginationBar,
   changePageIndex,
   changePageTotal,
 } from "./pagination.js";
+
 import { items, state } from "./data.js";
 
 let categoryItems = [];
 let sortedItems = [];
 let tempItems = [...items];
 let today = new Date();
+let defaultPageIndex = pageIndex;
 const bestSelling = 20;
 
-///Loaded
+///Load default
 defaultCatefilter();
 popularFilter();
+changePageIndex(defaultPageIndex);
 changePageTotal(sortedItems);
 renderPageNumber(sortedItems.length);
-renderPagination(sortedItems.length);
-renderPaging(sortedItems);
+renderPaginationBar(sortedItems.length);
+renderPagingItems(sortedItems);
 
 ///Filter
 //Popular Filter
@@ -133,20 +136,20 @@ inputSelects.forEach((inputSelect, index) => {
 
 $(".app__price-asc").addEventListener("click", () => {
   priceAscFilter();
+  changePageIndex(defaultPageIndex);
   changePageTotal(sortedItems);
   renderPageNumber(sortedItems.length);
-  renderPagination(sortedItems.length);
-  renderPageIndexDefault(sortedItems.length);
-  renderPaging(sortedItems);
+  renderPaginationBar(sortedItems.length);
+  renderPagingItems(sortedItems);
 });
 
 $(".app__price-desc").addEventListener("click", () => {
   priceDescFilter();
+  changePageIndex(defaultPageIndex);
   changePageTotal(sortedItems);
   renderPageNumber(sortedItems.length);
-  renderPagination(sortedItems.length);
-  renderPageIndexDefault(sortedItems.length);
-  renderPaging(sortedItems);
+  renderPaginationBar(sortedItems.length);
+  renderPagingItems(sortedItems);
 });
 
 //Popular+Newest+Date event
@@ -157,27 +160,29 @@ filterButtons.forEach((filterButton, index) => {
     filterButton.classList.add("btn--active");
     if (filterButton.classList.contains("app__filter-popular")) {
       popularFilter();
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+
+      renderPagingItems(sortedItems);
     }
     if (filterButton.classList.contains("app__filter-newest")) {
       dateFilter();
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+
+      renderPagingItems(sortedItems);
     }
     if (filterButton.classList.contains("app__filter-bestSell")) {
       bestSellingFilter();
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+      renderPagingItems(sortedItems);
     }
 
     //Set default input label
@@ -212,90 +217,82 @@ categories.forEach((category, index) => {
     category.innerHTML += `<div class="app__item-icon"></div>`;
     if (category.classList.contains("app__category-default")) {
       defaultCatefilter();
-      changePageIndex(1);
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       popularFilter(sortedItems.length);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+      renderPagingItems(sortedItems);
     }
 
     if (category.classList.contains("app__category-shirt")) {
       shirtFilter();
       popularFilter();
-      changePageIndex(1);
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+      renderPagingItems(sortedItems);
     }
 
     if (category.classList.contains("app__category-shoe")) {
       shoeFilter();
       popularFilter();
-      changePageIndex(1);
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+      renderPagingItems(sortedItems);
     }
 
     if (category.classList.contains("app__category-bag")) {
       bagFilter();
       popularFilter();
-      changePageIndex(1);
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+      renderPagingItems(sortedItems);
     }
 
     if (category.classList.contains("app__category-set")) {
       setFilter();
       popularFilter();
-      changePageIndex(1);
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+      renderPagingItems(sortedItems);
     }
 
     if (category.classList.contains("app__category-discount")) {
       discountFilter();
       popularFilter();
-      changePageIndex(1);
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+      renderPagingItems(sortedItems);
     }
 
     if (category.classList.contains("app__category-new")) {
       newFilter();
       popularFilter();
-      changePageIndex(1);
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+      renderPagingItems(sortedItems);
     }
 
     if (category.classList.contains("app__category-accessories")) {
       accessoriesFilter();
       popularFilter();
-      changePageIndex(1);
+      changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPagination(sortedItems.length);
-      renderPageIndexDefault(sortedItems.length);
-      renderPaging(sortedItems);
+      renderPaginationBar(sortedItems.length);
+      renderPagingItems(sortedItems);
     }
     //Set default Popular+Newest+Date
     $(".app__filter-item.btn--active").classList.remove("btn--active");
@@ -318,75 +315,84 @@ categories.forEach((category, index) => {
   });
 });
 
-//Change Page event
-
+///Change Page event
+//Button left header
 $(".app__pre-page").addEventListener("click", (e) => {
-  let pageIndex = renderPageIndexDecrement();
+  let pageIndex = decrePageIndex();
   renderPageNumber(sortedItems.length);
-  renderPaging(sortedItems);
-  // renderPagination(sortedItems.length);
+  renderPagingItems(sortedItems);
+  renderPaginationBar(sortedItems.length);
+  // Duyệt dom number mới vừa đc render và đc addEvent
   const paginationNumberItems = [...$$(".pagination-number")];
   paginationNumberItems.forEach((paginationNumberItem, index) => {
     paginationNumberItem.classList.remove("pagination-number--active");
-    if (pageIndex == index + 1)
+    if (paginationNumberItem.value === pageIndex)
       paginationNumberItem.classList.add("pagination-number--active");
   });
 });
 
+//Button right header
 $(".app__next-page").addEventListener("click", (e) => {
-  let pageIndex = renderPageIndexIncrement();
+  let pageIndex = increPageIndex();
   renderPageNumber(sortedItems.length);
-  renderPaging(sortedItems);
-  // renderPagination(sortedItems.length);
+  renderPagingItems(sortedItems);
+  renderPaginationBar(sortedItems.length);
   const paginationNumberItems = [...$$(".pagination-number")];
   paginationNumberItems.forEach((paginationNumberItem, index) => {
     paginationNumberItem.classList.remove("pagination-number--active");
-    if (pageIndex == index + 1)
+    if (paginationNumberItem.value === pageIndex)
       paginationNumberItem.classList.add("pagination-number--active");
   });
 });
 
+//Button number pagination bar
 export default function paginationAddEvent() {
   const paginationNumberItems = [...$$(".pagination-number")];
   paginationNumberItems.forEach((paginationNumberItem) => {
     paginationNumberItem.addEventListener("click", () => {
       console.log(paginationNumberItem);
       let pageIndex = changePageIndex(paginationNumberItem.value);
-      renderPaging(sortedItems);
+      renderPagingItems(sortedItems);
       renderPageNumber(sortedItems.length);
-      // renderPagination(sortedItems.length);
+      renderPaginationBar(sortedItems.length);
       $(".pagination-number.pagination-number--active").classList.remove(
         "pagination-number--active"
       );
-      paginationNumberItem.classList.add("pagination-number--active"); // K sd dc khi render lai pagination
-      console.log(pageIndex);
-      const items = [...$$(".pagination-number")];
+      // paginationNumberItem.classList.add("pagination-number--active"); // K sd dc khi render lai pagination
+      const paginationNumberItems = [...$$(".pagination-number")];
+      paginationNumberItems.forEach((paginationNumberItem, index) => {
+        if (paginationNumberItem.value === pageIndex)
+          paginationNumberItem.classList.add("pagination-number--active");
+      });
     });
   });
 
+  //Button left pagination bar
   $(".pagination-item__left").addEventListener("click", (e) => {
-    let pageIndex = renderPageIndexDecrement();
+    let pageIndex = decrePageIndex();
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
-    renderPaging(sortedItems);
-    // renderPagination(sortedItems.length);
+    renderPagingItems(sortedItems);
+    renderPaginationBar(sortedItems.length);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
       paginationNumberItem.classList.remove("pagination-number--active");
-      if (pageIndex == index + 1)
+      if (paginationNumberItem.value === pageIndex)
         paginationNumberItem.classList.add("pagination-number--active");
     });
   });
+
+  //Button right pagination bar
   $(".pagination-item__right").addEventListener("click", (e) => {
-    let pageIndex = renderPageIndexIncrement();
+    let pageIndex = increPageIndex();
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
-    renderPaging(sortedItems);
-    // renderPagination(sortedItems.length);
+    renderPagingItems(sortedItems);
+    renderPaginationBar(sortedItems.length);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
       paginationNumberItem.classList.remove("pagination-number--active");
-      if (pageIndex == index + 1)
+      if (paginationNumberItem.value === pageIndex)
         paginationNumberItem.classList.add("pagination-number--active");
     });
   });
