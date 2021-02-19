@@ -13,33 +13,48 @@ import { items } from "./data.js";
 
 let tempItems = []; // tempItems = [...items] tham tri den items
 let categoryItems = []; // items sort theo category
-let sortedItems = [];   // items sort theo popular, new, price
+let sortedItems = []; // items sort theo popular, new, price
 let today = new Date();
 let defaultPageIndex = pageIndex;
 const bestSelling = 20;
 
+// function resolveDataAfter1second() {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(items);
+//     }, 1000);
+//   });
+// }
+
+// resolveDataAfter1second()
+//   .then((items) => {
+//     console.log(items);
+//     tempItems = [...items];
+//     defaultCatefilter();
+//     popularFilter();
+//     changePageIndex(defaultPageIndex);
+//     changePageTotal(sortedItems);
+//     renderPageNumber(sortedItems.length);
+//     renderPaginationBar(sortedItems.length);
+//     renderPagingItems(sortedItems);
+//   })
+//   .catch((err) => {
+//     console.log("error:" + err);
+//   });
+
+///Async+await
 function resolveDataAfter1second() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(items);
-    }, 500);
-  });
-}
-
-// tempItems = [...items];
-function initializeDataAfter1second(items) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      tempItems = [...items];
-      resolve(tempItems);
-    }, 500);
+    }, 1000);
   });
 }
 
 async function loadDefault() {
   console.log("calling");
   const result = await resolveDataAfter1second();
-  tempItems = await initializeDataAfter1second(result);
+  tempItems = [...result];
   console.log(tempItems);
   defaultCatefilter();
   popularFilter();
