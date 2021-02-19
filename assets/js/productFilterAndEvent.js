@@ -53,8 +53,12 @@ function resolveDataAfter1second() {
 
 async function loadDefault() {
   console.log("calling");
-  const result = await resolveDataAfter1second();
-  tempItems = [...result];
+  try {
+    const result = await resolveDataAfter1second();
+    tempItems = [...result];
+  } catch (err) {
+    log("error:" + err);
+  }
   console.log(tempItems);
   defaultCatefilter();
   popularFilter();
