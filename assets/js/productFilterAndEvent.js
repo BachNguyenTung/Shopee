@@ -9,30 +9,54 @@ import {
   changePageTotal,
 } from "./pagination.js";
 
-import { items, state } from "./data.js";
+import { items } from "./data.js";
 
 let categoryItems = [];
 let sortedItems = [];
-let tempItems = [...items];
+let tempItems = [];
+// let tempItems = [...items];
 let today = new Date();
 let defaultPageIndex = pageIndex;
 const bestSelling = 20;
 
-///Load default
-defaultCatefilter();
-popularFilter();
-changePageIndex(defaultPageIndex);
-changePageTotal(sortedItems);
-renderPageNumber(sortedItems.length);
-renderPaginationBar(sortedItems.length);
-renderPagingItems(sortedItems);
+async function resolveDataAfter1second() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(items);
+    }, 500);
+  });
+}
+
+async function initializeDataAfter1second(items) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      tempItems = [...items];
+      resolve(tempItems);
+    }, 500);
+  });
+}
+
+async function loadDefault() {
+  console.log("calling");
+  const result = await resolveDataAfter1second();
+  tempItems = await initializeDataAfter1second(result);
+  console.log(tempItems);
+  defaultCatefilter();
+  popularFilter();
+  changePageIndex(defaultPageIndex);
+  changePageTotal(sortedItems);
+  renderPageNumber(sortedItems.length);
+  renderPaginationBar(sortedItems.length);
+  renderPagingItems(sortedItems);
+}
+loadDefault();
 
 ///Filter
 //Popular Filter
 function popularFilter() {
   sortedItems = categoryItems.filter(
     (item) =>
-      item.date.getDate() > today.getDate() - 30 ||
+      item.date.getDate() > today.getDate() - 20 ||
       item.soldAmount >= bestSelling
   );
 }
@@ -45,7 +69,7 @@ function bestSellingFilter() {
 // Date Filter
 function dateFilter() {
   sortedItems = categoryItems.filter(
-    (item) => item.date.getDate() > today.getDate() - 30
+    (item) => item.date.getDate() > today.getDate() - 20
   );
 }
 
