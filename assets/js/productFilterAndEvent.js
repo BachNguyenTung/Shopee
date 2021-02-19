@@ -11,15 +11,14 @@ import {
 
 import { items } from "./data.js";
 
-let categoryItems = [];
-let sortedItems = [];
-let tempItems = [];
-// let tempItems = [...items];
+let tempItems = []; // tempItems = [...items] tham tri den items
+let categoryItems = []; // items sort theo category
+let sortedItems = [];   // items sort theo popular, new, price
 let today = new Date();
 let defaultPageIndex = pageIndex;
 const bestSelling = 20;
 
-async function resolveDataAfter1second() {
+function resolveDataAfter1second() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(items);
@@ -27,7 +26,8 @@ async function resolveDataAfter1second() {
   });
 }
 
-async function initializeDataAfter1second(items) {
+// tempItems = [...items];
+function initializeDataAfter1second(items) {
   return new Promise((resolve) => {
     setTimeout(() => {
       tempItems = [...items];
