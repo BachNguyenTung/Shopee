@@ -114,9 +114,9 @@ const itemsApi = "http://localhost:3000/items";
 async function loadDefault() {
   console.log("calling");
   const response = await fetch(itemsApi);
-  const items = await response.json();
-  const result = await resolveDataAfter1second(items);
-  return result;
+  const result = await response.json();
+  const items = await resolveDataAfter1second(result);
+  return items;
 }
 loadDefault()
 .then((items) => {
