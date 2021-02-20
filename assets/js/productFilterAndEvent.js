@@ -10,7 +10,7 @@ import {
 } from "./pagination.js";
 
 import { items } from "./data.js"; //local data
-
+const itemsApi = "http://localhost:3000/items";
 let tempItems = []; // tempItems = [...items] tham tri den items
 let categoryItems = []; // items sort theo category
 let sortedItems = []; // items sort theo popular, new, price
@@ -70,24 +70,9 @@ const bestSelling = 20;
 // });
 
 ///Fetch then
-// function resolveDataAfter1second(items) {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(items);
-//     }, 1000);
-//   });
-// }
-
-// const itemsApi = "http://localhost:3000/items";
-// fetch(itemsApi)
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((result) => {
-//     console.log("calling");
-//     return resolveDataAfter1second(result);
-//   })
-//   .then((items) => {
+// function start() {
+//   console.log("calling");
+//   getData((items) => {
 //     tempItems = [...items];
 //     console.log(tempItems);
 //     defaultCatefilter();
@@ -97,12 +82,51 @@ const bestSelling = 20;
 //     renderPageNumber(sortedItems.length);
 //     renderPaginationBar(sortedItems.length);
 //     renderPagingItems(sortedItems);
-//   })
-//   .catch((err) => {
-//     console.log("error: " + err);
 //   });
+// }
+
+// start();
+
+// function resolveDataAfter1second(items) {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(items);
+//     }, 1000);
+//   });
+// }
+
+// function getData(callback) {
+//   fetch(itemsApi)
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then((result) => {
+//       return resolveDataAfter1second(result);
+//     })
+//     .then(callback)
+//     .catch((err) => {
+//       console.log("error: " + err);
+//     });
+// }
 
 ///Fetch async await
+function start() {
+  console.log("calling");
+  getData((items) => {
+    tempItems = [...items];
+    console.log(tempItems);
+    defaultCatefilter();
+    popularFilter();
+    changePageIndex(defaultPageIndex);
+    changePageTotal(sortedItems);
+    renderPageNumber(sortedItems.length);
+    renderPaginationBar(sortedItems.length);
+    renderPagingItems(sortedItems);
+  })
+}
+
+start();
+
 function resolveDataAfter1second(items) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -110,29 +134,13 @@ function resolveDataAfter1second(items) {
     }, 1000);
   });
 }
-const itemsApi = "http://localhost:3000/items";
-async function loadDefault() {
-  console.log("calling");
+
+async function getData(callback) {
   const response = await fetch(itemsApi);
   const result = await response.json();
   const items = await resolveDataAfter1second(result);
-  return items;
+  callback(items);
 }
-loadDefault()
-.then((items) => {
-  tempItems = [...items];
-  console.log(tempItems);
-  defaultCatefilter();
-  popularFilter();
-  changePageIndex(defaultPageIndex);
-  changePageTotal(sortedItems);
-  renderPageNumber(sortedItems.length);
-  renderPaginationBar(sortedItems.length);
-  renderPagingItems(sortedItems);
-})
-.catch((err)=>{
-  console.log({err});
-})
 
 ///Filter
 //Popular Filter
@@ -212,6 +220,7 @@ function accessoriesFilter() {
 
 function defaultCatefilter() {
   //sortedItem -> default
+  // tempItems = [...items];
   sortedItems = [...tempItems];
   categoryItems = [...sortedItems];
 }
@@ -328,7 +337,7 @@ categories.forEach((category, index) => {
       defaultCatefilter();
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
-      popularFilter(sortedItems.length);
+      popularFilter();
       renderPageNumber(sortedItems.length);
       renderPaginationBar(sortedItems.length);
       renderPagingItems(sortedItems);
