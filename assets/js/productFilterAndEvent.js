@@ -54,13 +54,12 @@ const bestSelling = 20;
 
 // async function loadDefault() {
 //   console.log("calling");
-//   try {
-//     const result = await resolveDataAfter1second();
-//     tempItems = [...result];
-//     console.log(tempItems);
-//   } catch (err) {
-//     console.log("error:" + err);
-//   }
+//   const result = await resolveDataAfter1second();
+//   return result;
+// }
+// loadDefault().then((items) =>{
+//   tempItems = [...items];
+//   console.log(tempItems);
 //   defaultCatefilter();
 //   popularFilter();
 //   changePageIndex(defaultPageIndex);
@@ -68,9 +67,7 @@ const bestSelling = 20;
 //   renderPageNumber(sortedItems.length);
 //   renderPaginationBar(sortedItems.length);
 //   renderPagingItems(sortedItems);
-// }
-// loadDefault();
-
+// });
 
 ///Fetch then
 // function resolveDataAfter1second(items) {
@@ -86,30 +83,24 @@ const bestSelling = 20;
 //   .then((response) => {
 //     return response.json();
 //   })
-//   .then((items) => {
+//   .then((result) => {
 //     console.log("calling");
-//     return resolveDataAfter1second(items)
-//       .then((items) => {
-//         tempItems = [...items];
-//         console.log(tempItems);
-//         defaultCatefilter();
-//         popularFilter();
-//         changePageIndex(defaultPageIndex);
-//         changePageTotal(sortedItems);
-//         renderPageNumber(sortedItems.length);
-//         renderPaginationBar(sortedItems.length);
-//         renderPagingItems(sortedItems);
-//       })
-//       .catch((err) => {
-//         console.log("error: " + err);
-//       });
+//     return resolveDataAfter1second(result);
+//   })
+//   .then((items) => {
+//     tempItems = [...items];
+//     console.log(tempItems);
+//     defaultCatefilter();
+//     popularFilter();
+//     changePageIndex(defaultPageIndex);
+//     changePageTotal(sortedItems);
+//     renderPageNumber(sortedItems.length);
+//     renderPaginationBar(sortedItems.length);
+//     renderPagingItems(sortedItems);
 //   })
 //   .catch((err) => {
 //     console.log("error: " + err);
 //   });
-
-///Filter
-//Popular Filter
 
 ///Fetch async await
 function resolveDataAfter1second(items) {
@@ -122,15 +113,15 @@ function resolveDataAfter1second(items) {
 const itemsApi = "http://localhost:3000/items";
 async function loadDefault() {
   console.log("calling");
-  try {
-    const response = await fetch(itemsApi);
-    const items = await response.json();
-    const result = await resolveDataAfter1second(items);
-    tempItems = [...result];
-    console.log(tempItems);
-  } catch (err) {
-    console.log("error: " + err);
-  }
+  const response = await fetch(itemsApi);
+  const items = await response.json();
+  const result = await resolveDataAfter1second(items);
+  return result;
+}
+loadDefault()
+.then((items) => {
+  tempItems = [...items];
+  console.log(tempItems);
   defaultCatefilter();
   popularFilter();
   changePageIndex(defaultPageIndex);
@@ -138,9 +129,13 @@ async function loadDefault() {
   renderPageNumber(sortedItems.length);
   renderPaginationBar(sortedItems.length);
   renderPagingItems(sortedItems);
-}
-loadDefault();
+})
+.catch((err)=>{
+  console.log({err});
+})
 
+///Filter
+//Popular Filter
 function popularFilter() {
   sortedItems = categoryItems.filter(
     (item) =>
