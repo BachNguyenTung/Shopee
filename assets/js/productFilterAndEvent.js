@@ -30,7 +30,7 @@ const bestSelling = 20;
 // resolveDataAfter1second()
 //   .then((items) => {
 //     console.log(items);
-//     tempItems = [...items];
+//     setTempItems(items);
 //     defaultCatefilter();
 //     popularFilter();
 //     changePageIndex(defaultPageIndex);
@@ -58,7 +58,7 @@ const bestSelling = 20;
 //   return result;
 // }
 // loadDefault().then((items) =>{
-//   tempItems = [...items];
+//   setTempItems(items);
 //   console.log(tempItems);
 //   defaultCatefilter();
 //   popularFilter();
@@ -73,7 +73,7 @@ const bestSelling = 20;
 // function start() {
 //   console.log("calling");
 //   getData((items) => {
-//     tempItems = [...items];
+//     setTempItems(items);
 //     console.log(tempItems);
 //     defaultCatefilter();
 //     popularFilter();
@@ -113,7 +113,7 @@ const bestSelling = 20;
 function start() {
   console.log("calling");
   getData((items) => {
-    tempItems = [...items];
+    setTempItems(items);
     console.log(tempItems);
     defaultCatefilter();
     popularFilter();
@@ -140,6 +140,10 @@ async function getData(callback) {
   const result = await response.json();
   const items = await resolveDataAfter1second(result);
   callback(items);
+}
+
+export function setTempItems(items) {
+  tempItems =[...items];
 }
 
 ///Filter
@@ -220,7 +224,6 @@ function accessoriesFilter() {
 
 function defaultCatefilter() {
   //sortedItem -> default
-  // tempItems = [...items];
   sortedItems = [...tempItems];
   categoryItems = [...sortedItems];
 }

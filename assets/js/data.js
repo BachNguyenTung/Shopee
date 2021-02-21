@@ -1,4 +1,5 @@
 //products
+import {setTempItems} from './productFilterAndEvent.js'
 export const items = [
   {
     name:
@@ -2023,4 +2024,71 @@ export let state = {
   pageSize: 10,
 };
 
+const Item = function(name,imageUrl,price,rating,soldAmount,freeShip,location, date, type){
+  this.name = name;
+  this.imageUrl = imageUrl;
+  this.price = price;
+  this.rating = rating;
+  this.soldAmount = soldAmount;
+  this.freeShip = freeShip;
+  this.location = location;
+  this.date = date;
+  this.type = type;
+}
 
+function createItem(data, render) {
+  const response = await fetch(itemsApi, {method:'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}});
+  const items = await response.json();
+  render(items);
+}
+
+function handleCreate(){
+  $('').addEventListener('click', () => {
+  let name = $('').value;
+  let imageUrl = $('').value;
+  let price = $('').value;
+  let rating  = $('').value;
+  let soldAmount = $('').value;
+  let freeShip = $('').value;
+  let location = $('').value;
+  let date = $('').value;
+  let type = $('').value;
+  let item = new Item(name, imageUrl, price, rating, soldAmount, freeShip, location, date, type);
+  createItem(item,(items) => {
+    setTempItems(items);
+    console.log(tempItems);
+    defaultCatefilter();
+    popularFilter();
+    changePageIndex(defaultPageIndex);
+    changePageTotal(sortedItems);
+    renderPageNumber(sortedItems.length);
+    renderPaginationBar(sortedItems.length);
+    renderPagingItems(sortedItems);
+})
+})};
+// handleCreate();
+
+function handleDelete(){
+  const deleteButtons = [...$$('')];
+  deleteButtons.forEach((deleteButton, index) => {
+    deleteButton.addEventListener("click", (e)=>{
+      deleteItem(e.target.value,(items) => {
+        setTempItems(items);
+        console.log(tempItems);
+        defaultCatefilter();
+        popularFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length);
+        renderPagingItems(sortedItems);
+    });
+    })})
+};
+// handleDelete();
+
+function deleteItem(id, render){
+  const response = await fetch(itemsApi  + '/' + id, {method:'DELETE', headers: {'Content-Type': 'application/json'}});
+  const items = await response.json();
+  render(items);
+}
