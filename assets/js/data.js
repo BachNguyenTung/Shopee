@@ -2027,7 +2027,7 @@ export let state = {
  * Create, Edit, Delete demo
  * using fetch api
  */
-
+const itemsApi = "http://localhost:3000/items";
  //Create item form using constructor
 const Item = function(name,imageUrl,price,rating,soldAmount,freeShip,location, date, type){
   this.name = name;
@@ -2041,22 +2041,23 @@ const Item = function(name,imageUrl,price,rating,soldAmount,freeShip,location, d
   this.type = type;
 }
 
+
 //Create data post to api
-function createItem(data, render) {
+async function createItem(data, render) {
   const response = await fetch(itemsApi, {method:'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}});
   const items = await response.json();
   render(items);
 }
 
 ///Delete data delete to api
-function deleteItem(id, renderDom){
+async function deleteItem(id, renderDom){
   const response = await fetch(itemsApi  + '/' + id, {method:'DELETE', headers: {'Content-Type': 'application/json'}});
   // const items = await response.json(); //k can goi lai data tu api
   renderDom();
 }
 
 ///Edit data put to api
-function editItem(id, data, renderDom){
+async function editItem(id, data, renderDom){
   const response = await fetch(itemsApi + '/' + id, {method:"PUT", body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}})
   renderDom();
 }
