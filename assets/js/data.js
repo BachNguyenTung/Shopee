@@ -1,5 +1,5 @@
 //products
-import {setTempItems} from './productFilterAndEvent.js'
+import { setTempItems } from "./productFilterAndEvent.js";
 export const items = [
   {
     name:
@@ -2028,8 +2028,18 @@ export let state = {
  * using fetch api
  */
 const itemsApi = "http://localhost:3000/items";
- //Create item form using constructor
-const Item = function(name,imageUrl,price,rating,soldAmount,freeShip,location, date, type){
+//Create item form using constructor
+const Item = function (
+  name,
+  imageUrl,
+  price,
+  rating,
+  soldAmount,
+  freeShip,
+  location,
+  date,
+  type
+) {
   this.name = name;
   this.imageUrl = imageUrl;
   this.price = price;
@@ -2039,96 +2049,135 @@ const Item = function(name,imageUrl,price,rating,soldAmount,freeShip,location, d
   this.location = location;
   this.date = date;
   this.type = type;
-}
-
+};
 
 //Create data post to api
 async function createItem(data, render) {
-  const response = await fetch(itemsApi, {method:'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}});
-  const items = await response.json();
-  render(items);
+  const response = await fetch(itemsApi, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" },
+  });
+  // const items = await response.json();
+  render(data);
 }
 
 ///Delete data delete to api
-async function deleteItem(id, renderDom){
-  const response = await fetch(itemsApi  + '/' + id, {method:'DELETE', headers: {'Content-Type': 'application/json'}});
+async function deleteItem(id, renderDom) {
+  const response = await fetch(itemsApi + "/" + id, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
   // const items = await response.json(); //k can goi lai data tu api
   renderDom();
 }
 
 ///Edit data put to api
-async function editItem(id, data, renderDom){
-  const response = await fetch(itemsApi + '/' + id, {method:"PUT", body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}})
+async function editItem(id, data, renderDom) {
+  const response = await fetch(itemsApi + "/" + id, {
+    method: "PUT",
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" },
+  });
   renderDom();
 }
 
 ///AddEventlistener
-function handleCreate(){
-  $('').addEventListener('click', () => {
-  let name = $('').value;
-  let imageUrl = $('').value;
-  let price = $('').value;
-  let rating  = $('').value;
-  let soldAmount = $('').value;
-  let freeShip = $('').value;
-  let location = $('').value;
-  let date = $('').value;
-  let type = $('').value;
-  let item = new Item(name, imageUrl, price, rating, soldAmount, freeShip, location, date, type);
-  createItem(item,(items) => {
-    setTempItems(items);
-    console.log(tempItems);
-    defaultCatefilter();
-    popularFilter();
-    changePageIndex(defaultPageIndex);
-    changePageTotal(sortedItems);
-    renderPageNumber(sortedItems.length);
-    renderPaginationBar(sortedItems.length);
-    renderPagingItems(sortedItems);
-})
-})};
+function handleCreate() {
+  $("").addEventListener("click", () => {
+    let name = $("").value;
+    let imageUrl = $("").value;
+    let price = $("").value;
+    let rating = $("").value;
+    let soldAmount = $("").value;
+    let freeShip = $("").value;
+    let location = $("").value;
+    let date = $("").value;
+    let type = $("").value;
+    let item = new Item(
+      name,
+      imageUrl,
+      price,
+      rating,
+      soldAmount,
+      freeShip,
+      location,
+      date,
+      type
+    );
+    createItem(item, (item) => {
+      //render item ra html, tao id cho item trc = fetch or khoi tao??
+      $(".product-list").innerHTML += `
+      <ul class="product-item-${item.id}">
+        <li class="product-name">${item.name}</li>
+        <li class="product-imageUrl">${item.imageUrl}</li>
+        <li class="product-price">${item.price}</li>
+        <li class="product-rating">${item.rating}</li>
+        <li class="product-soldAmount">${item.soldAmount}</li>
+        <li class="product-freeShip">${item.freeShip}</li>
+        <li class="product-location">${item.location}</li>
+        <li class="product-date">${item.date}</li>
+      </ul>`;
+    });
+  });
+}
 // handleCreate(); //add listener
 
-function handleDelete(){
-  const deleteButtons = [...$$('')];
+function handleDelete() {
+  const deleteButtons = [...$$("")];
   deleteButtons.forEach((deleteButton, index) => {
-    deleteButton.addEventListener("click", (e)=>{ //add value for button
+    deleteButton.addEventListener("click", (e) => {
+      //add value for button
       var id = e.target.value;
-      deleteItem(id,()=>{
-        $('.product-item-' + id).remove(); //Xoa dom, k can render lai tu api
+      deleteItem(id, () => {
+        $(".product-item-" + id).remove(); //Xoa dom, k can render lai tu api
       });
-    })})
-};
+    });
+  });
+}
 // handleDelete(); //add listener
 
-function handleEdit(){
-  const editButtons = [...$$('')];
+function handleEdit() {
+  const editButtons = [...$$("")];
   editButtons.forEach((editButton) => {
     editButton.addEventListener("click", (e) => {
       var id = e.target.value;
-      let name = $('').value;
-      let imageUrl = $('').value;
-      let price = $('').value;
-      let rating  = $('').value;
-      let soldAmount = $('').value;
-      let freeShip = $('').value;
-      let location = $('').value;
-      let date = $('').value;
-      let type = $('').value;
-      let item = new Item(name, imageUrl, price, rating, soldAmount, freeShip, location, date, type);
-      deleteItem(id, item, ()=>{
-        $('.product-item-' + id>'.product-name').innerHTML = item.name;
-        $('.product-item-' + id>'.product-imageUrl').innerHTML = item.imageUrl;
-        $('.product-item-' + id>'.product-price').innerHTML = item.price;
-        $('.product-item-' + id>'.product-rating').innerHTML = item.rating;
-        $('.product-item-' + id>'.product-soldAmount').innerHTML = item.soldAmount;
-        $('.product-item-' + id>'.product-freeShip').innerHTML = item.freeShip;
-        $('.product-item-' + id>'.product-location').innerHTML = item.location;
-        $('.product-item-' + id>'.product-date').innerHTML = item.date;
-        $('.product-item-' + id>'.product-name').type = item.type;
-        $('.product-item-' + id>'.product-name').item = item.item;
+      let name = $("").value;
+      let imageUrl = $("").value;
+      let price = $("").value;
+      let rating = $("").value;
+      let soldAmount = $("").value;
+      let freeShip = $("").value;
+      let location = $("").value;
+      let date = $("").value;
+      let type = $("").value;
+      let item = new Item(
+        name,
+        imageUrl,
+        price,
+        rating,
+        soldAmount,
+        freeShip,
+        location,
+        date,
+        type
+      );
+      deleteItem(id, item, () => {
+        $(".product-item-" + id > ".product-name").innerHTML = item.name;
+        $(".product-item-" + id > ".product-imageUrl").innerHTML =
+          item.imageUrl;
+        $(".product-item-" + id > ".product-price").innerHTML = item.price;
+        $(".product-item-" + id > ".product-rating").innerHTML = item.rating;
+        $(".product-item-" + id > ".product-soldAmount").innerHTML =
+          item.soldAmount;
+        $(".product-item-" + id > ".product-freeShip").innerHTML =
+          item.freeShip;
+        $(".product-item-" + id > ".product-location").innerHTML =
+          item.location;
+        $(".product-item-" + id > ".product-date").innerHTML = item.date;
+        $(".product-item-" + id > ".product-type").innerHTML = item.type;
       });
-    })
-  })
+    });
+  });
 }
 // handleEdit(); //add listener
