@@ -1,5 +1,3 @@
-import paginationAddEvent from "./productFilterAndEvent.js";
-
 let pageSize = 10;
 export let pageIndex = 1;
 let pageTotal;
@@ -194,8 +192,8 @@ export function decrePageIndex() {
 }
 
 //render thanh pagination
-export function renderPaginationBar(total) {
-  if (total <= pageSize) {
+export function renderPaginationBar(totalItems,callback) {
+  if (totalItems <= pageSize) {
     $(".pagination").innerHTML = ``;
     return;
   }
@@ -216,7 +214,7 @@ export function renderPaginationBar(total) {
       `;
   }
   for (let index = 3; index <= pageTotal; index++) {
-    //origin
+    //phan trang mac dinh
     // paginationPageIndex += `
     //   <li value="${index}" class="pagination-number">
     //                   <div class="pagination-item__link">${index}</div>
@@ -284,7 +282,7 @@ export function renderPaginationBar(total) {
     $(".pagination-number").classList.add("pagination-number--active");
   }
   //Add lai event click khi render
-  paginationAddEvent();
+  callback();
 }
 
 //Thay đổi số trang hiện tại
@@ -310,4 +308,4 @@ export function changePageTotal(value) {
       ? 1
       : Math.ceil(value.length / pageSize);
 }
-//  only run at start atm , import start end to data render,
+

@@ -36,7 +36,7 @@ const bestSelling = 20;
 //     changePageIndex(defaultPageIndex);
 //     changePageTotal(sortedItems);
 //     renderPageNumber(sortedItems.length);
-//     renderPaginationBar(sortedItems.length);
+//     renderPaginationBar(sortedItems.length,paginationAddEvent);
 //     renderPagingItems(sortedItems);
 //   })
 //   .catch((err) => {
@@ -65,7 +65,7 @@ const bestSelling = 20;
 //   changePageIndex(defaultPageIndex);
 //   changePageTotal(sortedItems);
 //   renderPageNumber(sortedItems.length);
-//   renderPaginationBar(sortedItems.length);
+//   renderPaginationBar(sortedItems.length,paginationAddEvent);
 //   renderPagingItems(sortedItems);
 // });
 
@@ -80,7 +80,7 @@ const bestSelling = 20;
 //     changePageIndex(defaultPageIndex);
 //     changePageTotal(sortedItems);
 //     renderPageNumber(sortedItems.length);
-//     renderPaginationBar(sortedItems.length);
+//     renderPaginationBar(sortedItems.length,paginationAddEvent);
 //     renderPagingItems(sortedItems);
 //   });
 // }
@@ -110,40 +110,53 @@ const bestSelling = 20;
 // }
 
 ///Fetch async await
-function start() {
-  console.log("calling");
-  getData((items) => {
-    setTempItems(items);
-    console.log(tempItems);
-    defaultCatefilter();
-    popularFilter();
-    changePageIndex(defaultPageIndex);
-    changePageTotal(sortedItems);
-    renderPageNumber(sortedItems.length);
-    renderPaginationBar(sortedItems.length);
-    renderPagingItems(sortedItems);
-  })
+async function start() {
+  console.log("calling"); //1.Task 0 callstack xu ly tra ve
+  //Task4 co the dung then hoac callback neu k co return promise()
+  // getData().then((items) => { //5.Task 4 .then dc xu ly o api roi day vao callstack de xu ly callback
+  //   setTempItems(items);
+  //   console.log(tempItems);
+  //   defaultCatefilter();
+  //   popularFilter();
+  //   changePageIndex(defaultPageIndex);
+  //   changePageTotal(sortedItems);
+  //   renderPageNumber(sortedItems.length);
+  //   renderPaginationBar(sortedItems.length,paginationAddEvent);
+  //   renderPagingItems(sortedItems);
+  // })
+  const items = await getData(); //5.Task 4 getData() dc xu ly o api roi day vao callstack de xu ly callback
+  setTempItems(items);
+  console.log(tempItems);
+  defaultCatefilter();
+  popularFilter();
+  changePageIndex(defaultPageIndex);
+  changePageTotal(sortedItems);
+  renderPageNumber(sortedItems.length);
+  renderPaginationBar(sortedItems.length, paginationAddEvent);
+  renderPagingItems(sortedItems);
 }
-
 start();
 
 function resolveDataAfter1second(items) {
-  return new Promise((resolve) => {
+  const promise = new Promise((resolve) => {
+    //micro task
     setTimeout(() => {
+      //macro task
       resolve(items);
     }, 1000);
   });
+  return promise;
 }
 
-async function getData(callback) {
-  const response = await fetch(itemsApi);
-  const result = await response.json();
-  const items = await resolveDataAfter1second(result);
-  callback(items);
+async function getData() {
+  const response = await fetch(itemsApi); //2.task 1 fetch sau khi dc xu ly o api, day vao callstack xu ly callback
+  const result = await response.json(); //3.task 2 .json() tuong tu day vao callstack xu ly callback
+  const items = await resolveDataAfter1second(result); //4.task 3 setTimeout day vao callstack xu ly callback
+  return items;
 }
 
 export function setTempItems(items) {
-  tempItems =[...items];
+  tempItems = [...items];
 }
 
 ///Filter
@@ -260,7 +273,7 @@ $(".app__price-asc").addEventListener("click", () => {
   changePageIndex(defaultPageIndex);
   changePageTotal(sortedItems);
   renderPageNumber(sortedItems.length);
-  renderPaginationBar(sortedItems.length);
+  renderPaginationBar(sortedItems.length, paginationAddEvent);
   renderPagingItems(sortedItems);
 });
 
@@ -269,7 +282,7 @@ $(".app__price-desc").addEventListener("click", () => {
   changePageIndex(defaultPageIndex);
   changePageTotal(sortedItems);
   renderPageNumber(sortedItems.length);
-  renderPaginationBar(sortedItems.length);
+  renderPaginationBar(sortedItems.length, paginationAddEvent);
   renderPagingItems(sortedItems);
 });
 
@@ -284,7 +297,7 @@ filterButtons.forEach((filterButton, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
 
       renderPagingItems(sortedItems);
     }
@@ -293,7 +306,7 @@ filterButtons.forEach((filterButton, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
 
       renderPagingItems(sortedItems);
     }
@@ -302,7 +315,7 @@ filterButtons.forEach((filterButton, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       renderPagingItems(sortedItems);
     }
 
@@ -342,7 +355,7 @@ categories.forEach((category, index) => {
       changePageTotal(sortedItems);
       popularFilter();
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       renderPagingItems(sortedItems);
     }
 
@@ -352,7 +365,7 @@ categories.forEach((category, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       renderPagingItems(sortedItems);
     }
 
@@ -362,7 +375,7 @@ categories.forEach((category, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       renderPagingItems(sortedItems);
     }
 
@@ -372,7 +385,7 @@ categories.forEach((category, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       renderPagingItems(sortedItems);
     }
 
@@ -382,7 +395,7 @@ categories.forEach((category, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       renderPagingItems(sortedItems);
     }
 
@@ -392,7 +405,7 @@ categories.forEach((category, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       renderPagingItems(sortedItems);
     }
 
@@ -402,7 +415,7 @@ categories.forEach((category, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       renderPagingItems(sortedItems);
     }
 
@@ -412,7 +425,7 @@ categories.forEach((category, index) => {
       changePageIndex(defaultPageIndex);
       changePageTotal(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       renderPagingItems(sortedItems);
     }
     //Set default Popular+Newest+Date
@@ -442,7 +455,7 @@ $(".app__pre-page").addEventListener("click", (e) => {
   let pageIndex = decrePageIndex();
   renderPageNumber(sortedItems.length);
   renderPagingItems(sortedItems);
-  renderPaginationBar(sortedItems.length);
+  renderPaginationBar(sortedItems.length, paginationAddEvent);
   // Duyệt dom number mới vừa đc render và đc addEvent
   const paginationNumberItems = [...$$(".pagination-number")];
   paginationNumberItems.forEach((paginationNumberItem, index) => {
@@ -457,7 +470,7 @@ $(".app__next-page").addEventListener("click", (e) => {
   let pageIndex = increPageIndex();
   renderPageNumber(sortedItems.length);
   renderPagingItems(sortedItems);
-  renderPaginationBar(sortedItems.length);
+  renderPaginationBar(sortedItems.length, paginationAddEvent);
   const paginationNumberItems = [...$$(".pagination-number")];
   paginationNumberItems.forEach((paginationNumberItem, index) => {
     paginationNumberItem.classList.remove("pagination-number--active");
@@ -467,7 +480,7 @@ $(".app__next-page").addEventListener("click", (e) => {
 });
 
 //Button number pagination bar
-export default function paginationAddEvent() {
+function paginationAddEvent() {
   const paginationNumberItems = [...$$(".pagination-number")];
   paginationNumberItems.forEach((paginationNumberItem) => {
     paginationNumberItem.addEventListener("click", () => {
@@ -475,7 +488,7 @@ export default function paginationAddEvent() {
       let pageIndex = changePageIndex(paginationNumberItem.value);
       renderPagingItems(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationAddEvent);
       $(".pagination-number.pagination-number--active").classList.remove(
         "pagination-number--active"
       );
@@ -494,7 +507,7 @@ export default function paginationAddEvent() {
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
     renderPagingItems(sortedItems);
-    renderPaginationBar(sortedItems.length);
+    renderPaginationBar(sortedItems.length, paginationAddEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
       paginationNumberItem.classList.remove("pagination-number--active");
@@ -509,7 +522,7 @@ export default function paginationAddEvent() {
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
     renderPagingItems(sortedItems);
-    renderPaginationBar(sortedItems.length);
+    renderPaginationBar(sortedItems.length, paginationAddEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
       paginationNumberItem.classList.remove("pagination-number--active");

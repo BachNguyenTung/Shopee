@@ -1,5 +1,4 @@
 //products
-import { setTempItems } from "./productFilterAndEvent.js";
 export const items = [
   {
     name:
