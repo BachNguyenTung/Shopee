@@ -19,7 +19,7 @@ let today = new Date();
 let defaultPageIndex = pageIndex;
 const bestSelling = 20;
 
-/////GetData 
+/////GetData
 ////Promise then
 // function resolveDataAfter1second() {
 //   return new Promise((resolve) => {
@@ -38,7 +38,7 @@ const bestSelling = 20;
 //     changePageIndex(defaultPageIndex);
 //     changePageTotal(sortedItems);
 //     renderPageNumber(sortedItems.length);
-//     renderPaginationBar(sortedItems.length,paginationAddEvent);
+//     renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
 //     renderPagingItems(sortedItems);
 //   })
 //   .catch((err) => {
@@ -67,7 +67,7 @@ const bestSelling = 20;
 //   changePageIndex(defaultPageIndex);
 //   changePageTotal(sortedItems);
 //   renderPageNumber(sortedItems.length);
-//   renderPaginationBar(sortedItems.length,paginationAddEvent);
+//   renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
 //   renderPagingItems(sortedItems);
 // });
 
@@ -82,7 +82,7 @@ const bestSelling = 20;
 //     changePageIndex(defaultPageIndex);
 //     changePageTotal(sortedItems);
 //     renderPageNumber(sortedItems.length);
-//     renderPaginationBar(sortedItems.length,paginationAddEvent);
+//     renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
 //     renderPagingItems(sortedItems);
 //   });
 // }
@@ -113,9 +113,9 @@ const bestSelling = 20;
 
 ///Fetch async await
 async function start() {
-  console.log("calling"); //1.Task 0 callstack xu ly tra ve
+  console.log("calling"); //Task 1 day vao callstack xu ly tra ve
   //Task4 co the dung then hoac callback neu k co return promise()
-  // getData().then((items) => { //5.Task 4 .then dc xu ly o api roi day vao callstack de xu ly callback
+  // getData().then((items) => { //5.Task 4 .getData() dc xu ly o api roi day vao callstack de xu ly callback goi tu .then()
   //   setTempItems(items);
   //   console.log(tempItems);
   //   defaultCatefilter();
@@ -123,10 +123,10 @@ async function start() {
   //   changePageIndex(defaultPageIndex);
   //   changePageTotal(sortedItems);
   //   renderPageNumber(sortedItems.length);
-  //   renderPaginationBar(sortedItems.length,paginationAddEvent);
+  //   renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
   //   renderPagingItems(sortedItems);
   // })
-  const items = await getData(); //5.Task 4 getData() dc xu ly o api roi day vao callstack de xu ly callback
+  const items = await getData(); //Task 2 getData() dc xu ly o api roi day vao task queue, suspense start() to wait the result from resolve promise
   setTempItems(items);
   console.log(tempItems);
   defaultCatefilter();
@@ -134,10 +134,10 @@ async function start() {
   changePageIndex(defaultPageIndex);
   changePageTotal(sortedItems);
   renderPageNumber(sortedItems.length);
-  renderPaginationBar(sortedItems.length, paginationAddEvent);
+  renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
   renderPagingItems(sortedItems);
 }
-start();
+start(); //Task 0 dc xu ly o api roi day vao task queue
 
 function resolveDataAfter1second(items) {
   const promise = new Promise((resolve) => {
@@ -151,9 +151,9 @@ function resolveDataAfter1second(items) {
 }
 
 async function getData() {
-  const response = await fetch(itemsApi); //2.task 1 fetch sau khi dc xu ly o api, day vao callstack xu ly callback
-  const result = await response.json(); //3.task 2 .json() tuong tu day vao callstack xu ly callback
-  const items = await resolveDataAfter1second(result); //4.task 3 setTimeout day vao callstack xu ly callback
+  const response = await fetch(itemsApi); //2.task 3 fetch sau khi dc xu ly o api, day vao callstack xu ly callback
+  const result = await response.json(); //3.task 4 .json() tuong tu day vao callstack xu ly callback
+  const items = await resolveDataAfter1second(result); //4.task 5 setTimeout day vao callstack xu ly callback
   return items;
 }
 
@@ -393,245 +393,248 @@ function defaultCatefilter() {
 }
 
 ///Events
-//Price event
-const inputDefaultLabel = $(".app__input-lable").innerHTML;
-const inputDefaultColor = "var(--text-color)";
-const inputSelects = [...$$(".app__input-item")];
-inputSelects.forEach((inputSelect, index) => {
-  inputSelect.addEventListener("click", () => {
-    //Change label text+color
-    $(".app__input-lable").innerHTML = inputSelect.textContent;
-    $(".app__input-lable").style.color = "var(--primary-color)";
-    $(".app__input-list").style.display = "none";
-    $(".select-input").addEventListener("mouseover", () => {
-      $(".app__input-list").removeAttribute("style");
+function registerEvents() {
+  //Price event
+  const inputDefaultLabel = $(".app__input-lable").innerHTML;
+  const inputDefaultColor = "var(--text-color)";
+  const inputSelects = [...$$(".app__input-item")];
+  inputSelects.forEach((inputSelect, index) => {
+    inputSelect.addEventListener("click", () => {
+      //Change label text+color
+      $(".app__input-lable").innerHTML = inputSelect.textContent;
+      $(".app__input-lable").style.color = "var(--primary-color)";
+      $(".app__input-list").style.display = "none";
+      $(".select-input").addEventListener("mouseover", () => {
+        $(".app__input-list").removeAttribute("style");
+      });
+      //Add check icon
+      $(".app__input-item.app__input-item--active").removeChild(
+        $(".app__input-item-icon")
+      );
+      $(".app__input-item.app__input-item--active").classList.remove(
+        "app__input-item--active"
+      );
+
+      inputSelect.classList.add("app__input-item--active");
+      inputSelect.innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
     });
-    //Add check icon
-    $(".app__input-item.app__input-item--active").removeChild(
-      $(".app__input-item-icon")
-    );
-    $(".app__input-item.app__input-item--active").classList.remove(
-      "app__input-item--active"
-    );
-
-    inputSelect.classList.add("app__input-item--active");
-    inputSelect.innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
   });
-});
 
-$(".app__price-asc").addEventListener("click", () => {
-  priceAscFilter();
-  changePageIndex(defaultPageIndex);
-  changePageTotal(sortedItems);
-  renderPageNumber(sortedItems.length);
-  renderPaginationBar(sortedItems.length, paginationAddEvent);
-  renderPagingItems(sortedItems);
-});
-
-$(".app__price-desc").addEventListener("click", () => {
-  priceDescFilter();
-  changePageIndex(defaultPageIndex);
-  changePageTotal(sortedItems);
-  renderPageNumber(sortedItems.length);
-  renderPaginationBar(sortedItems.length, paginationAddEvent);
-  renderPagingItems(sortedItems);
-});
-
-//Popular+Newest+Date event
-const filterButtons = [...$$(".app__filter-item")];
-filterButtons.forEach((filterButton, index) => {
-  filterButton.addEventListener("click", (e) => {
-    $(".app__filter-item.btn--active").classList.remove("btn--active");
-    filterButton.classList.add("btn--active");
-    if (filterButton.classList.contains("app__filter-popular")) {
-      popularFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-
-      renderPagingItems(sortedItems);
-    }
-    if (filterButton.classList.contains("app__filter-newest")) {
-      dateFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-
-      renderPagingItems(sortedItems);
-    }
-    if (filterButton.classList.contains("app__filter-bestSell")) {
-      bestSellingFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-      renderPagingItems(sortedItems);
-    }
-
-    //Set default input label
-    $(".app__input-lable").innerHTML = inputDefaultLabel;
-    $(".app__input-lable").style.color = inputDefaultColor;
-
-    //Set Price Default
-    $(".app__input-item.app__input-item--active").removeChild(
-      $(".app__input-item-icon")
-    );
-    $(".app__input-item.app__input-item--active").classList.remove(
-      "app__input-item--active"
-    );
-    $(".app__price-default").classList.add("app__input-item--active");
-    $(
-      ".app__price-default"
-    ).innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
+  $(".app__price-asc").addEventListener("click", () => {
+    priceAscFilter();
+    changePageIndex(defaultPageIndex);
+    changePageTotal(sortedItems);
+    renderPageNumber(sortedItems.length);
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+    renderPagingItems(sortedItems);
   });
-});
 
-//Category event
-const categories = [...$$(".app__category-item")];
-categories.forEach((category, index) => {
-  category.addEventListener("click", () => {
-    $(".app__category-item.app__category-item--active").removeChild(
-      $(".app__item-icon")
-    );
-    $(".app__category-item.app__category-item--active").classList.remove(
-      "app__category-item--active"
-    );
-    category.classList.add("app__category-item--active");
-    category.innerHTML += `<div class="app__item-icon"></div>`;
-    if (category.classList.contains("app__category-default")) {
-      defaultCatefilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      popularFilter();
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-      renderPagingItems(sortedItems);
-    }
-
-    if (category.classList.contains("app__category-shirt")) {
-      shirtFilter();
-      popularFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-      renderPagingItems(sortedItems);
-    }
-
-    if (category.classList.contains("app__category-shoe")) {
-      shoeFilter();
-      popularFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-      renderPagingItems(sortedItems);
-    }
-
-    if (category.classList.contains("app__category-bag")) {
-      bagFilter();
-      popularFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-      renderPagingItems(sortedItems);
-    }
-
-    if (category.classList.contains("app__category-set")) {
-      setFilter();
-      popularFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-      renderPagingItems(sortedItems);
-    }
-
-    if (category.classList.contains("app__category-discount")) {
-      discountFilter();
-      popularFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-      renderPagingItems(sortedItems);
-    }
-
-    if (category.classList.contains("app__category-new")) {
-      newFilter();
-      popularFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-      renderPagingItems(sortedItems);
-    }
-
-    if (category.classList.contains("app__category-accessories")) {
-      accessoriesFilter();
-      popularFilter();
-      changePageIndex(defaultPageIndex);
-      changePageTotal(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
-      renderPagingItems(sortedItems);
-    }
-    //Set default Popular+Newest+Date
-    $(".app__filter-item.btn--active").classList.remove("btn--active");
-    $(".app__filter-popular").classList.add("btn--active");
-    //Set default input label
-    $(".app__input-lable").innerHTML = inputDefaultLabel;
-    $(".app__input-lable").style.color = inputDefaultColor;
-
-    //Set Price Default
-    $(".app__input-item.app__input-item--active").removeChild(
-      $(".app__input-item-icon")
-    );
-    $(".app__input-item.app__input-item--active").classList.remove(
-      "app__input-item--active"
-    );
-    $(".app__price-default").classList.add("app__input-item--active");
-    $(
-      ".app__price-default"
-    ).innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
+  $(".app__price-desc").addEventListener("click", () => {
+    priceDescFilter();
+    changePageIndex(defaultPageIndex);
+    changePageTotal(sortedItems);
+    renderPageNumber(sortedItems.length);
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+    renderPagingItems(sortedItems);
   });
-});
 
-///Change Page event
-//Button left header
-$(".app__pre-page").addEventListener("click", (e) => {
-  let pageIndex = decrePageIndex();
-  renderPageNumber(sortedItems.length);
-  renderPagingItems(sortedItems);
-  renderPaginationBar(sortedItems.length, paginationAddEvent);
-  // Duyệt dom number mới vừa đc render và đc addEvent
-  const paginationNumberItems = [...$$(".pagination-number")];
-  paginationNumberItems.forEach((paginationNumberItem, index) => {
-    paginationNumberItem.classList.remove("pagination-number--active");
-    if (paginationNumberItem.value === pageIndex)
-      paginationNumberItem.classList.add("pagination-number--active");
+  //Popular+Newest+Date event
+  const filterButtons = [...$$(".app__filter-item")];
+  filterButtons.forEach((filterButton, index) => {
+    filterButton.addEventListener("click", (e) => {
+      $(".app__filter-item.btn--active").classList.remove("btn--active");
+      filterButton.classList.add("btn--active");
+      if (filterButton.classList.contains("app__filter-popular")) {
+        popularFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+
+        renderPagingItems(sortedItems);
+      }
+      if (filterButton.classList.contains("app__filter-newest")) {
+        dateFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+
+        renderPagingItems(sortedItems);
+      }
+      if (filterButton.classList.contains("app__filter-bestSell")) {
+        bestSellingFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+        renderPagingItems(sortedItems);
+      }
+
+      //Set default input label
+      $(".app__input-lable").innerHTML = inputDefaultLabel;
+      $(".app__input-lable").style.color = inputDefaultColor;
+
+      //Set Price Default
+      $(".app__input-item.app__input-item--active").removeChild(
+        $(".app__input-item-icon")
+      );
+      $(".app__input-item.app__input-item--active").classList.remove(
+        "app__input-item--active"
+      );
+      $(".app__price-default").classList.add("app__input-item--active");
+      $(
+        ".app__price-default"
+      ).innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
+    });
   });
-});
 
-//Button right header
-$(".app__next-page").addEventListener("click", (e) => {
-  let pageIndex = increPageIndex();
-  renderPageNumber(sortedItems.length);
-  renderPagingItems(sortedItems);
-  renderPaginationBar(sortedItems.length, paginationAddEvent);
-  const paginationNumberItems = [...$$(".pagination-number")];
-  paginationNumberItems.forEach((paginationNumberItem, index) => {
-    paginationNumberItem.classList.remove("pagination-number--active");
-    if (paginationNumberItem.value === pageIndex)
-      paginationNumberItem.classList.add("pagination-number--active");
+  //Category event
+  const categories = [...$$(".app__category-item")];
+  categories.forEach((category, index) => {
+    category.addEventListener("click", () => {
+      $(".app__category-item.app__category-item--active").removeChild(
+        $(".app__item-icon")
+      );
+      $(".app__category-item.app__category-item--active").classList.remove(
+        "app__category-item--active"
+      );
+      category.classList.add("app__category-item--active");
+      category.innerHTML += `<div class="app__item-icon"></div>`;
+      if (category.classList.contains("app__category-default")) {
+        defaultCatefilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        popularFilter();
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+        renderPagingItems(sortedItems);
+      }
+
+      if (category.classList.contains("app__category-shirt")) {
+        shirtFilter();
+        popularFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+        renderPagingItems(sortedItems);
+      }
+
+      if (category.classList.contains("app__category-shoe")) {
+        shoeFilter();
+        popularFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+        renderPagingItems(sortedItems);
+      }
+
+      if (category.classList.contains("app__category-bag")) {
+        bagFilter();
+        popularFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+        renderPagingItems(sortedItems);
+      }
+
+      if (category.classList.contains("app__category-set")) {
+        setFilter();
+        popularFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+        renderPagingItems(sortedItems);
+      }
+
+      if (category.classList.contains("app__category-discount")) {
+        discountFilter();
+        popularFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+        renderPagingItems(sortedItems);
+      }
+
+      if (category.classList.contains("app__category-new")) {
+        newFilter();
+        popularFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+        renderPagingItems(sortedItems);
+      }
+
+      if (category.classList.contains("app__category-accessories")) {
+        accessoriesFilter();
+        popularFilter();
+        changePageIndex(defaultPageIndex);
+        changePageTotal(sortedItems);
+        renderPageNumber(sortedItems.length);
+        renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+        renderPagingItems(sortedItems);
+      }
+      //Set default Popular+Newest+Date
+      $(".app__filter-item.btn--active").classList.remove("btn--active");
+      $(".app__filter-popular").classList.add("btn--active");
+      //Set default input label
+      $(".app__input-lable").innerHTML = inputDefaultLabel;
+      $(".app__input-lable").style.color = inputDefaultColor;
+
+      //Set Price Default
+      $(".app__input-item.app__input-item--active").removeChild(
+        $(".app__input-item-icon")
+      );
+      $(".app__input-item.app__input-item--active").classList.remove(
+        "app__input-item--active"
+      );
+      $(".app__price-default").classList.add("app__input-item--active");
+      $(
+        ".app__price-default"
+      ).innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
+    });
   });
-});
 
-//Button number pagination bar
-function paginationAddEvent() {
+  ///Change Page event
+  //Button left header
+  $(".app__pre-page").addEventListener("click", (e) => {
+    let pageIndex = decrePageIndex();
+    renderPageNumber(sortedItems.length);
+    renderPagingItems(sortedItems);
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+    // Duyệt dom number mới vừa đc render và đc addEvent
+    const paginationNumberItems = [...$$(".pagination-number")];
+    paginationNumberItems.forEach((paginationNumberItem, index) => {
+      paginationNumberItem.classList.remove("pagination-number--active");
+      if (paginationNumberItem.value === pageIndex)
+        paginationNumberItem.classList.add("pagination-number--active");
+    });
+  });
+
+  //Button right header
+  $(".app__next-page").addEventListener("click", (e) => {
+    let pageIndex = increPageIndex();
+    renderPageNumber(sortedItems.length);
+    renderPagingItems(sortedItems);
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+    const paginationNumberItems = [...$$(".pagination-number")];
+    paginationNumberItems.forEach((paginationNumberItem, index) => {
+      paginationNumberItem.classList.remove("pagination-number--active");
+      if (paginationNumberItem.value === pageIndex)
+        paginationNumberItem.classList.add("pagination-number--active");
+    });
+  });
+}
+registerEvents();
+
+//RegisterEvent for pagination bar after render
+function paginationBarRegisterEvent() {
   const paginationNumberItems = [...$$(".pagination-number")];
   paginationNumberItems.forEach((paginationNumberItem) => {
     paginationNumberItem.addEventListener("click", () => {
@@ -639,7 +642,7 @@ function paginationAddEvent() {
       let pageIndex = changePageIndex(paginationNumberItem.value);
       renderPagingItems(sortedItems);
       renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationAddEvent);
+      renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
       $(".pagination-number.pagination-number--active").classList.remove(
         "pagination-number--active"
       );
@@ -658,7 +661,7 @@ function paginationAddEvent() {
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
     renderPagingItems(sortedItems);
-    renderPaginationBar(sortedItems.length, paginationAddEvent);
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
       paginationNumberItem.classList.remove("pagination-number--active");
@@ -673,7 +676,7 @@ function paginationAddEvent() {
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
     renderPagingItems(sortedItems);
-    renderPaginationBar(sortedItems.length, paginationAddEvent);
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
       paginationNumberItem.classList.remove("pagination-number--active");
