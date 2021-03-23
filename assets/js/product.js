@@ -112,32 +112,22 @@ const bestSelling = 20;
 // }
 
 ///Fetch async await
-async function start() {
+function start() {
   console.log("calling"); //Task 1 day vao callstack xu ly tra ve
   //Task4 co the dung then hoac callback neu k co return promise()
-  // getData().then((items) => { //5.Task 4 .getData() dc xu ly o api roi day vao callstack de xu ly callback goi tu .then()
-  //   setTempItems(items);
-  //   console.log(tempItems);
-  //   defaultCatefilter();
-  //   popularFilter();
-  //   changePageIndex(defaultPageIndex);
-  //   changePageTotal(sortedItems);
-  //   renderPageNumber(sortedItems.length);
-  //   renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
-  //   renderPagingItems(sortedItems);
-  // })
-  const items = await getData(); //Task 2 getData() dc xu ly o api roi day vao task queue, suspense start() to wait the result from resolve promise
-  setTempItems(items);
-  console.log(tempItems);
-  defaultCatefilter();
-  popularFilter();
-  changePageIndex(defaultPageIndex);
-  changePageTotal(sortedItems);
-  renderPageNumber(sortedItems.length);
-  renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-  renderPagingItems(sortedItems);
+  getData().then((items) => { //Task 2 .getData() dc xu ly o api roi day vao taskqueue , Task6 callback tu .then dc day vao callstack de xu ly
+    setTempItems(items);
+    console.log(tempItems);
+    defaultCatefilter();
+    popularFilter();
+    changePageIndex(defaultPageIndex);
+    changePageTotal(sortedItems);
+    renderPageNumber(sortedItems.length);
+    renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
+    renderPagingItems(sortedItems);
+  })
 }
-start(); //Task 0 dc xu ly o api roi day vao task queue
+start();
 
 function resolveDataAfter1second(items) {
   const promise = new Promise((resolve) => {
@@ -151,9 +141,9 @@ function resolveDataAfter1second(items) {
 }
 
 async function getData() {
-  const response = await fetch(itemsApi); //2.task 3 fetch sau khi dc xu ly o api, day vao callstack xu ly callback
-  const result = await response.json(); //3.task 4 .json() tuong tu day vao callstack xu ly callback
-  const items = await resolveDataAfter1second(result); //4.task 5 setTimeout day vao callstack xu ly callback
+  const response = await fetch(itemsApi); //task 3 fetch sau khi dc xu ly o api, day vao callstack xu ly callback
+  const result = await response.json(); //task 4 .json() tuong tu day vao callstack xu ly callback
+  const items = await resolveDataAfter1second(result); //task 5 setTimeout day vao callstack xu ly callback
   return items;
 }
 
