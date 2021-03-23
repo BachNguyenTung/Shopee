@@ -115,7 +115,8 @@ const bestSelling = 20;
 function start() {
   console.log("calling"); //Task 1 day vao callstack xu ly tra ve
   //Task4 co the dung then hoac callback neu k co return promise()
-  getData().then((items) => { //Task 2 .getData() dc xu ly o api roi day vao taskqueue , Task6 callback tu .then dc day vao callstack de xu ly
+  getData().then((items) => {
+    //Task 2 .getData() dc xu ly o api roi day vao taskqueue , Task6 callback tu .then dc day vao callstack de xu ly
     setTempItems(items);
     console.log(tempItems);
     defaultCatefilter();
@@ -123,9 +124,10 @@ function start() {
     changePageIndex(defaultPageIndex);
     changePageTotal(sortedItems);
     renderPageNumber(sortedItems.length);
-    renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     renderPagingItems(sortedItems);
-  })
+    registerEvents();
+  });
 }
 start();
 
@@ -160,6 +162,10 @@ function renderPagingItems(items) {
       return `
     <div class="grid__col-2c4x">
     <div class="app__product-item">
+      <div class="app__product-add-cart">
+        <i class="app__product-add-cart-icon bi bi-cart"></i>
+        Add to cart
+      </div>
       <a href="" class="app__product-link">
         <div class="app__product-top-text">Yêu thích</div>
         <div class="app__product-sale-off">
@@ -620,8 +626,19 @@ function registerEvents() {
         paginationNumberItem.classList.add("pagination-number--active");
     });
   });
+
+  //Button add cart
+  const addCartButtons = [...$$(".app__product-add-cart")];
+  addCartButtons.forEach((addCartButton, index) => {
+    addCartButton.addEventListener("click", (e) => {
+      console.log(e);
+      if (addCartButton.innerText == "Add to cart") {
+        addCartButton.innerText = "In cart";
+        addCartButton.classList.add("app__product-add-cart--disabled");
+      }
+    });
+  });
 }
-registerEvents();
 
 //RegisterEvent for pagination bar after render
 function paginationBarRegisterEvent() {

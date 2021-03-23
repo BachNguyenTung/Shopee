@@ -147,3 +147,12 @@
     transform: scale(1);
   }
 }
+
+@keyframes slideIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
