@@ -7,14 +7,14 @@ import {
   renderPaginationBar,
   changePageIndex,
   changePageTotal,
+  paginationBarRegisterEvent,
 } from "./pagination.js";
-
+import { registerEventsCartBtn } from "./cart.js";
 // import { items } from "./data.js"; //local data
 const itemsApi = "http://localhost:3000/items";
 let tempItems = []; // tempItems = [...items] tham tri den items
 let categoryItems = []; // items sort theo category
 let sortedItems = []; // items sort theo popular, new, price
-let html = "";
 let today = new Date();
 let defaultPageIndex = pageIndex;
 const bestSelling = 20;
@@ -40,6 +40,7 @@ const bestSelling = 20;
 //     renderPageNumber(sortedItems.length);
 //     renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
 //     renderPagingItems(sortedItems);
+// registerEventsCartBtn();
 //   })
 //   .catch((err) => {
 //     console.log("error:" + err);
@@ -69,6 +70,7 @@ const bestSelling = 20;
 //   renderPageNumber(sortedItems.length);
 //   renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
 //   renderPagingItems(sortedItems);
+// registerEventsCartBtn();
 // });
 
 ///Fetch then
@@ -84,6 +86,7 @@ const bestSelling = 20;
 //     renderPageNumber(sortedItems.length);
 //     renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
 //     renderPagingItems(sortedItems);
+// registerEventsCartBtn();
 //   });
 // }
 
@@ -126,6 +129,7 @@ function start() {
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     renderPagingItems(sortedItems);
+    registerEventsCartBtn();
     registerEvents();
   });
 }
@@ -146,6 +150,15 @@ async function getData() {
   const response = await fetch(itemsApi); //task 3 fetch sau khi dc xu ly o api, day vao callstack xu ly callback
   const result = await response.json(); //task 4 .json() tuong tu day vao callstack xu ly callback
   const items = await resolveDataAfter1second(result); //task 5 setTimeout day vao callstack xu ly callback
+  const itemsIdAdded = await addItemId(items); //Task 6
+  return itemsIdAdded;
+}
+
+//add id cho item
+async function addItemId(items) {
+  items.forEach((item, index) => {
+    item.id = index;
+  });
   return items;
 }
 
@@ -154,18 +167,28 @@ function setTempItems(items) {
   tempItems = [...items];
 }
 
+//Get products temp
+export function getTempItems() {
+  return tempItems;
+}
+
+//Get sorted products
+export function getSortedProducts() {
+  return sortedItems;
+}
+
 //render Products by pagination
-function renderPagingItems(items) {
+export function renderPagingItems(items) {
   items = items.slice((pageIndex - 1) * pageSize, pageIndex * pageSize);
-  html = items
+  let html = items
     .map((item, index) => {
       return `
     <div class="grid__col-2c4x">
     <div class="app__product-item">
-      <div class="app__product-add-cart">
-        <i class="app__product-add-cart-icon bi bi-cart"></i>
+      <button class="btn app__product-cart-btn" data-id=${item.id}>
+        <i class="app__product-cart-icon bi bi-cart"></i>
         Add to cart
-      </div>
+      </button>
       <a href="" class="app__product-link">
         <div class="app__product-top-text">Yêu thích</div>
         <div class="app__product-sale-off">
@@ -423,6 +446,7 @@ function registerEvents() {
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     renderPagingItems(sortedItems);
+    registerEventsCartBtn();
   });
 
   $(".app__price-desc").addEventListener("click", () => {
@@ -432,6 +456,7 @@ function registerEvents() {
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     renderPagingItems(sortedItems);
+    registerEventsCartBtn();
   });
 
   //Popular+Newest+Date event
@@ -448,6 +473,7 @@ function registerEvents() {
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
 
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
       if (filterButton.classList.contains("app__filter-newest")) {
         dateFilter();
@@ -457,6 +483,7 @@ function registerEvents() {
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
 
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
       if (filterButton.classList.contains("app__filter-bestSell")) {
         bestSellingFilter();
@@ -465,6 +492,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
 
       //Set default input label
@@ -505,6 +533,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
 
       if (category.classList.contains("app__category-shirt")) {
@@ -515,6 +544,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
 
       if (category.classList.contains("app__category-shoe")) {
@@ -525,6 +555,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
 
       if (category.classList.contains("app__category-bag")) {
@@ -535,6 +566,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
 
       if (category.classList.contains("app__category-set")) {
@@ -545,6 +577,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
 
       if (category.classList.contains("app__category-discount")) {
@@ -555,6 +588,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
 
       if (category.classList.contains("app__category-new")) {
@@ -565,6 +599,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
 
       if (category.classList.contains("app__category-accessories")) {
@@ -575,6 +610,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
         renderPagingItems(sortedItems);
+        registerEventsCartBtn();
       }
       //Set default Popular+Newest+Date
       $(".app__filter-item.btn--active").classList.remove("btn--active");
@@ -603,6 +639,7 @@ function registerEvents() {
     let pageIndex = decrePageIndex();
     renderPageNumber(sortedItems.length);
     renderPagingItems(sortedItems);
+    registerEventsCartBtn();
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     // Duyệt dom number mới vừa đc render và đc addEvent
     const paginationNumberItems = [...$$(".pagination-number")];
@@ -618,71 +655,7 @@ function registerEvents() {
     let pageIndex = increPageIndex();
     renderPageNumber(sortedItems.length);
     renderPagingItems(sortedItems);
-    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-    const paginationNumberItems = [...$$(".pagination-number")];
-    paginationNumberItems.forEach((paginationNumberItem, index) => {
-      paginationNumberItem.classList.remove("pagination-number--active");
-      if (paginationNumberItem.value === pageIndex)
-        paginationNumberItem.classList.add("pagination-number--active");
-    });
-  });
-
-  //Button add cart
-  const addCartButtons = [...$$(".app__product-add-cart")];
-  addCartButtons.forEach((addCartButton, index) => {
-    addCartButton.addEventListener("click", (e) => {
-      console.log(e);
-      if (addCartButton.innerText == "Add to cart") {
-        addCartButton.innerText = "In cart";
-        addCartButton.classList.add("app__product-add-cart--disabled");
-      }
-    });
-  });
-}
-
-//RegisterEvent for pagination bar after render
-function paginationBarRegisterEvent() {
-  const paginationNumberItems = [...$$(".pagination-number")];
-  paginationNumberItems.forEach((paginationNumberItem) => {
-    paginationNumberItem.addEventListener("click", () => {
-      console.log(paginationNumberItem);
-      let pageIndex = changePageIndex(paginationNumberItem.value);
-      renderPagingItems(sortedItems);
-      renderPageNumber(sortedItems.length);
-      renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-      $(".pagination-number.pagination-number--active").classList.remove(
-        "pagination-number--active"
-      );
-      // paginationNumberItem.classList.add("pagination-number--active"); // K sd dc khi render lai pagination
-      const paginationNumberItems = [...$$(".pagination-number")];
-      paginationNumberItems.forEach((paginationNumberItem, index) => {
-        if (paginationNumberItem.value === pageIndex)
-          paginationNumberItem.classList.add("pagination-number--active");
-      });
-    });
-  });
-
-  //Button left pagination bar
-  $(".pagination-item__left").addEventListener("click", (e) => {
-    let pageIndex = decrePageIndex();
-    renderPageNumber(sortedItems.length);
-    changePageIndex(pageIndex);
-    renderPagingItems(sortedItems);
-    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-    const paginationNumberItems = [...$$(".pagination-number")];
-    paginationNumberItems.forEach((paginationNumberItem, index) => {
-      paginationNumberItem.classList.remove("pagination-number--active");
-      if (paginationNumberItem.value === pageIndex)
-        paginationNumberItem.classList.add("pagination-number--active");
-    });
-  });
-
-  //Button right pagination bar
-  $(".pagination-item__right").addEventListener("click", (e) => {
-    let pageIndex = increPageIndex();
-    renderPageNumber(sortedItems.length);
-    changePageIndex(pageIndex);
-    renderPagingItems(sortedItems);
+    registerEventsCartBtn();
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
@@ -692,3 +665,5 @@ function paginationBarRegisterEvent() {
     });
   });
 }
+
+

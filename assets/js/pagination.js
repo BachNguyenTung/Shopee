@@ -1,3 +1,6 @@
+import { getSortedProducts, renderPagingItems } from "./product.js";
+import { registerEventsCartBtn } from "./cart.js";
+
 export let pageSize = 10;
 export let pageIndex = 1;
 let pageTotal;
@@ -44,7 +47,7 @@ export function decrePageIndex() {
 }
 
 //render thanh pagination
-export function renderPaginationBar(totalItems,callback) {
+export function renderPaginationBar(totalItems, callback) {
   if (totalItems <= pageSize) {
     $(".pagination").innerHTML = ``;
     return;
@@ -161,3 +164,59 @@ export function changePageTotal(value) {
       : Math.ceil(value.length / pageSize);
 }
 
+//RegisterEvent for pagination bar after render
+export function paginationBarRegisterEvent() {
+  let sortedItems = getSortedProducts();
+  const paginationNumberItems = [...$$(".pagination-number")];
+  paginationNumberItems.forEach((paginationNumberItem) => {
+    paginationNumberItem.addEventListener("click", () => {
+      console.log(paginationNumberItem);
+      let pageIndex = changePageIndex(paginationNumberItem.value);
+      renderPagingItems(sortedItems);
+      registerEventsCartBtn();
+      renderPageNumber(sortedItems.length);
+      renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+      $(".pagination-number.pagination-number--active").classList.remove(
+        "pagination-number--active"
+      );
+      // paginationNumberItem.classList.add("pagination-number--active"); // K sd dc khi render lai pagination
+      const paginationNumberItems = [...$$(".pagination-number")];
+      paginationNumberItems.forEach((paginationNumberItem, index) => {
+        if (paginationNumberItem.value === pageIndex)
+          paginationNumberItem.classList.add("pagination-number--active");
+      });
+    });
+  });
+
+  //Button left pagination bar
+  $(".pagination-item__left").addEventListener("click", (e) => {
+    let pageIndex = decrePageIndex();
+    renderPageNumber(sortedItems.length);
+    changePageIndex(pageIndex);
+    renderPagingItems(sortedItems);
+    registerEventsCartBtn();
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+    const paginationNumberItems = [...$$(".pagination-number")];
+    paginationNumberItems.forEach((paginationNumberItem, index) => {
+      paginationNumberItem.classList.remove("pagination-number--active");
+      if (paginationNumberItem.value === pageIndex)
+        paginationNumberItem.classList.add("pagination-number--active");
+    });
+  });
+
+  //Button right pagination bar
+  $(".pagination-item__right").addEventListener("click", (e) => {
+    let pageIndex = increPageIndex();
+    renderPageNumber(sortedItems.length);
+    changePageIndex(pageIndex);
+    renderPagingItems(sortedItems);
+    registerEventsCartBtn();
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+    const paginationNumberItems = [...$$(".pagination-number")];
+    paginationNumberItems.forEach((paginationNumberItem, index) => {
+      paginationNumberItem.classList.remove("pagination-number--active");
+      if (paginationNumberItem.value === pageIndex)
+        paginationNumberItem.classList.add("pagination-number--active");
+    });
+  });
+}
