@@ -186,7 +186,7 @@ export function renderPagingItems(items) {
     <div class="grid__col-2c4x">
     <div class="app__product-item">
       <button class="btn app__product-cart-btn" data-id=${item.id}>
-        <i class="app__product-cart-icon bi bi-cart"></i>
+        <i class="app__product-cart-btn-icon bi bi-cart"></i>
         Add to cart
       </button>
       <a href="" class="app__product-link">
