@@ -9,7 +9,12 @@ import {
   changePageTotal,
   paginationBarRegisterEvent,
 } from "./pagination.js";
-import { registerEventsCartBtn } from "./cart.js";
+import {
+  getCartItems,
+  registerEventsDelCartBtn,
+  registerEventsCartBtn,
+  renderCartItems,
+} from "./cart.js";
 // import { items } from "./data.js"; //local data
 const itemsApi = "http://localhost:3000/items";
 let tempItems = []; // tempItems = [...items] tham tri den items
@@ -129,7 +134,9 @@ function start() {
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     renderPagingItems(sortedItems);
+    renderCartItems();
     registerEventsCartBtn();
+    registerEventsDelCartBtn();
     registerEvents();
   });
 }
@@ -327,6 +334,16 @@ export function renderPagingItems(items) {
     })
     .join("");
   $(".grid__row-product").innerHTML = html;
+  let cartItems = getCartItems();
+  const addCartButtons = [...$$(".app__product-cart-btn")];
+  addCartButtons.forEach((addCartButton) => {
+    cartItems.forEach((cartItem) => {
+      if (addCartButton.dataset.id == cartItem.id) {
+        addCartButton.innerText = "In cart";
+        addCartButton.classList.add("app__product-cart-btn--disabled");
+      }
+    });
+  });
 }
 
 ///Filter
@@ -665,5 +682,3 @@ function registerEvents() {
     });
   });
 }
-
-

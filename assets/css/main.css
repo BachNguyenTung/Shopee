@@ -462,7 +462,7 @@ header {
 }
 
 .header__cart-wrapper:hover .header__cart-list {
-  display: block;
+  visibility: visible;
 }
 
 .header__cart-wrapper:hover .header__cart-list--empty {
@@ -517,11 +517,11 @@ header {
   font-size: 1.3rem;
   color: var(--text-color);
   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 26%);
-  display: none;
   animation: headerNotifyGrowing ease-in 0.15s;
   transform-origin: 90% top;
   will-change: opacity, transform;
   z-index: 3;
+  visibility: hidden;
   max-height: 70vh;
   /* 70% viewport height*/
   /* overflow-y: auto; */
@@ -584,6 +584,7 @@ header {
 }
 
 .header__cart-item {
+  position: relative;
   text-align: right;
   padding: 1rem 1rem;
 }
@@ -618,6 +619,18 @@ header {
 .header__cart-price {
   flex-basis: 7rem;
   text-align: right;
+}
+
+.header__cart-delBtn {
+  position: absolute;
+  top: 3.8rem;
+  right: 1rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.header__cart-delBtn:hover {
+  color: var(--primary-color);
 }
 
 .header__cart-button {
