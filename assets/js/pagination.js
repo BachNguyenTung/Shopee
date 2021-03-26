@@ -1,5 +1,5 @@
 import { getSortedProducts, renderPagingItems } from "./product.js";
-import { registerEventsCartBtn } from "./cart.js";
+import { registerEventsAddCartBtn } from "./cart.js";
 
 export let pageSize = 10;
 export let pageIndex = 1;
@@ -172,8 +172,8 @@ export function paginationBarRegisterEvent() {
     paginationNumberItem.addEventListener("click", () => {
       console.log(paginationNumberItem);
       let pageIndex = changePageIndex(paginationNumberItem.value);
-      renderPagingItems(sortedItems);
-      registerEventsCartBtn();
+      renderPagingItems(sortedItems, registerEventsAddCartBtn);
+
       renderPageNumber(sortedItems.length);
       renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
       $(".pagination-number.pagination-number--active").classList.remove(
@@ -193,8 +193,8 @@ export function paginationBarRegisterEvent() {
     let pageIndex = decrePageIndex();
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
-    renderPagingItems(sortedItems);
-    registerEventsCartBtn();
+    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
@@ -209,8 +209,8 @@ export function paginationBarRegisterEvent() {
     let pageIndex = increPageIndex();
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
-    renderPagingItems(sortedItems);
-    registerEventsCartBtn();
+    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {

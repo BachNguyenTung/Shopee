@@ -11,8 +11,7 @@ import {
 } from "./pagination.js";
 import {
   getCartItems,
-  registerEventsDelCartBtn,
-  registerEventsCartBtn,
+  registerEventsAddCartBtn,
   renderCartItems,
 } from "./cart.js";
 // import { items } from "./data.js"; //local data
@@ -44,8 +43,8 @@ const bestSelling = 20;
 //     changePageTotal(sortedItems);
 //     renderPageNumber(sortedItems.length);
 //     renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
-//     renderPagingItems(sortedItems);
-// registerEventsCartBtn();
+//     renderPagingItems(sortedItems,registerEventsAddCartBtn);
+//
 //   })
 //   .catch((err) => {
 //     console.log("error:" + err);
@@ -74,8 +73,8 @@ const bestSelling = 20;
 //   changePageTotal(sortedItems);
 //   renderPageNumber(sortedItems.length);
 //   renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
-//   renderPagingItems(sortedItems);
-// registerEventsCartBtn();
+//   renderPagingItems(sortedItems,registerEventsAddCartBtn);
+//
 // });
 
 ///Fetch then
@@ -90,8 +89,8 @@ const bestSelling = 20;
 //     changePageTotal(sortedItems);
 //     renderPageNumber(sortedItems.length);
 //     renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
-//     renderPagingItems(sortedItems);
-// registerEventsCartBtn();
+//     renderPagingItems(sortedItems,registerEventsAddCartBtn);
+//
 //   });
 // }
 
@@ -133,10 +132,8 @@ function start() {
     changePageTotal(sortedItems);
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-    renderPagingItems(sortedItems);
+    renderPagingItems(sortedItems, registerEventsAddCartBtn);
     renderCartItems();
-    registerEventsCartBtn();
-    registerEventsDelCartBtn();
     registerEvents();
   });
 }
@@ -185,7 +182,7 @@ export function getSortedProducts() {
 }
 
 //render Products by pagination
-export function renderPagingItems(items) {
+export function renderPagingItems(items, callback) {
   items = items.slice((pageIndex - 1) * pageSize, pageIndex * pageSize);
   let html = items
     .map((item, index) => {
@@ -334,6 +331,8 @@ export function renderPagingItems(items) {
     })
     .join("");
   $(".grid__row-product").innerHTML = html;
+  callback();
+  // render addCartButton when item in cart
   let cartItems = getCartItems();
   const addCartButtons = [...$$(".app__product-cart-btn")];
   addCartButtons.forEach((addCartButton) => {
@@ -462,8 +461,7 @@ function registerEvents() {
     changePageTotal(sortedItems);
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-    renderPagingItems(sortedItems);
-    registerEventsCartBtn();
+    renderPagingItems(sortedItems, registerEventsAddCartBtn);
   });
 
   $(".app__price-desc").addEventListener("click", () => {
@@ -472,8 +470,7 @@ function registerEvents() {
     changePageTotal(sortedItems);
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-    renderPagingItems(sortedItems);
-    registerEventsCartBtn();
+    renderPagingItems(sortedItems, registerEventsAddCartBtn);
   });
 
   //Popular+Newest+Date event
@@ -489,8 +486,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
 
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
       if (filterButton.classList.contains("app__filter-newest")) {
         dateFilter();
@@ -499,8 +495,7 @@ function registerEvents() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
 
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
       if (filterButton.classList.contains("app__filter-bestSell")) {
         bestSellingFilter();
@@ -508,8 +503,7 @@ function registerEvents() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
 
       //Set default input label
@@ -549,8 +543,7 @@ function registerEvents() {
         popularFilter();
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
 
       if (category.classList.contains("app__category-shirt")) {
@@ -560,8 +553,7 @@ function registerEvents() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
 
       if (category.classList.contains("app__category-shoe")) {
@@ -571,8 +563,7 @@ function registerEvents() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
 
       if (category.classList.contains("app__category-bag")) {
@@ -582,8 +573,7 @@ function registerEvents() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
 
       if (category.classList.contains("app__category-set")) {
@@ -593,8 +583,7 @@ function registerEvents() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
 
       if (category.classList.contains("app__category-discount")) {
@@ -604,8 +593,7 @@ function registerEvents() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
 
       if (category.classList.contains("app__category-new")) {
@@ -615,8 +603,7 @@ function registerEvents() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
 
       if (category.classList.contains("app__category-accessories")) {
@@ -626,8 +613,7 @@ function registerEvents() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems);
-        registerEventsCartBtn();
+        renderPagingItems(sortedItems, registerEventsAddCartBtn);
       }
       //Set default Popular+Newest+Date
       $(".app__filter-item.btn--active").classList.remove("btn--active");
@@ -655,8 +641,8 @@ function registerEvents() {
   $(".app__pre-page").addEventListener("click", (e) => {
     let pageIndex = decrePageIndex();
     renderPageNumber(sortedItems.length);
-    renderPagingItems(sortedItems);
-    registerEventsCartBtn();
+    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     // Duyệt dom number mới vừa đc render và đc addEvent
     const paginationNumberItems = [...$$(".pagination-number")];
@@ -671,8 +657,8 @@ function registerEvents() {
   $(".app__next-page").addEventListener("click", (e) => {
     let pageIndex = increPageIndex();
     renderPageNumber(sortedItems.length);
-    renderPagingItems(sortedItems);
-    registerEventsCartBtn();
+    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {
