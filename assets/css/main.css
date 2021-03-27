@@ -873,6 +873,7 @@ header {
 }
 
 .app__product-item:hover .app__product-cart-btn {
+  transform: translateX(0);
   opacity: 1;
 }
 
@@ -913,6 +914,8 @@ header {
   color: var(--text-color);
   background-color: var(--primary-color);
   z-index: 1;
+  transition: transform linear 0.2s;
+  transform: translateX(101%);
   cursor: pointer;
 }
 
