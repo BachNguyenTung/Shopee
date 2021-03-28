@@ -9,8 +9,7 @@ import {
   headerPagingBtnRegisterEvent,
 } from "./pagination.js";
 import {
-  getCartItems,
-  registerEventsAddCartBtn,
+  getAndModifyAddCartBtn,
   renderCartItems,
 } from "./cart.js";
 // import { items } from "./data.js"; //local data
@@ -42,7 +41,7 @@ const bestSelling = 20;
 //     changePageTotal(sortedItems);
 //     renderPageNumber(sortedItems.length);
 //     renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
-//     renderPagingItems(sortedItems,registerEventsAddCartBtn);
+//     renderPagingItems(sortedItems,getAndModifyAddCartBtn);
 //
 //   })
 //   .catch((err) => {
@@ -72,7 +71,7 @@ const bestSelling = 20;
 //   changePageTotal(sortedItems);
 //   renderPageNumber(sortedItems.length);
 //   renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
-//   renderPagingItems(sortedItems,registerEventsAddCartBtn);
+//   renderPagingItems(sortedItems,getAndModifyAddCartBtn);
 //
 // });
 
@@ -88,7 +87,7 @@ const bestSelling = 20;
 //     changePageTotal(sortedItems);
 //     renderPageNumber(sortedItems.length);
 //     renderPaginationBar(sortedItems.length,paginationBarRegisterEvent);
-//     renderPagingItems(sortedItems,registerEventsAddCartBtn);
+//     renderPagingItems(sortedItems,getAndModifyAddCartBtn);
 //
 //   });
 // }
@@ -132,7 +131,7 @@ function start() {
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     headerPagingBtnRegisterEvent();
-    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+    renderPagingItems(sortedItems, getAndModifyAddCartBtn);
     renderCartItems();
     registerEventsFilterBtn();
   });
@@ -332,17 +331,6 @@ export function renderPagingItems(items, callback) {
     .join("");
   $(".grid__row-product").innerHTML = html;
   callback();
-  // render addCartButton when item in cart
-  let cartItems = getCartItems();
-  const addCartButtons = [...$$(".app__product-cart-btn")];
-  addCartButtons.forEach((addCartButton) => {
-    cartItems.forEach((cartItem) => {
-      if (addCartButton.dataset.id == cartItem.id) {
-        addCartButton.innerText = "In cart";
-        addCartButton.classList.add("app__product-cart-btn--disabled");
-      }
-    });
-  });
 }
 
 ///Filter
@@ -461,7 +449,7 @@ function registerEventsFilterBtn() {
     changePageTotal(sortedItems);
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+    renderPagingItems(sortedItems, getAndModifyAddCartBtn);
   });
 
   $(".app__price-desc").addEventListener("click", () => {
@@ -470,7 +458,7 @@ function registerEventsFilterBtn() {
     changePageTotal(sortedItems);
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+    renderPagingItems(sortedItems, getAndModifyAddCartBtn);
   });
 
   //Popular+Newest+Date event
@@ -486,7 +474,7 @@ function registerEventsFilterBtn() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
 
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
       if (filterButton.classList.contains("app__filter-newest")) {
         dateFilter();
@@ -495,7 +483,7 @@ function registerEventsFilterBtn() {
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
 
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
       if (filterButton.classList.contains("app__filter-bestSell")) {
         bestSellingFilter();
@@ -503,7 +491,7 @@ function registerEventsFilterBtn() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
 
       //Set default input label
@@ -543,7 +531,7 @@ function registerEventsFilterBtn() {
         popularFilter();
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
 
       if (category.classList.contains("app__category-shirt")) {
@@ -553,7 +541,7 @@ function registerEventsFilterBtn() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
 
       if (category.classList.contains("app__category-shoe")) {
@@ -563,7 +551,7 @@ function registerEventsFilterBtn() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
 
       if (category.classList.contains("app__category-bag")) {
@@ -573,7 +561,7 @@ function registerEventsFilterBtn() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
 
       if (category.classList.contains("app__category-set")) {
@@ -583,7 +571,7 @@ function registerEventsFilterBtn() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
 
       if (category.classList.contains("app__category-discount")) {
@@ -593,7 +581,7 @@ function registerEventsFilterBtn() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
 
       if (category.classList.contains("app__category-new")) {
@@ -603,7 +591,7 @@ function registerEventsFilterBtn() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
 
       if (category.classList.contains("app__category-accessories")) {
@@ -613,7 +601,7 @@ function registerEventsFilterBtn() {
         changePageTotal(sortedItems);
         renderPageNumber(sortedItems.length);
         renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-        renderPagingItems(sortedItems, registerEventsAddCartBtn);
+        renderPagingItems(sortedItems, getAndModifyAddCartBtn);
       }
       //Set default Popular+Newest+Date
       $(".app__filter-item.btn--active").classList.remove("btn--active");

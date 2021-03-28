@@ -1,5 +1,5 @@
 import { getSortedProducts, renderPagingItems } from "./product.js";
-import { registerEventsAddCartBtn } from "./cart.js";
+import { getAndModifyAddCartBtn } from "./cart.js";
 
 export let pageSize = 10;
 export let pageIndex = 1;
@@ -172,7 +172,7 @@ export function paginationBarRegisterEvent() {
     paginationNumberItem.addEventListener("click", () => {
       console.log(paginationNumberItem);
       let pageIndex = changePageIndex(paginationNumberItem.value);
-      renderPagingItems(sortedItems, registerEventsAddCartBtn);
+      renderPagingItems(sortedItems, getAndModifyAddCartBtn);
 
       renderPageNumber(sortedItems.length);
       renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
@@ -193,7 +193,7 @@ export function paginationBarRegisterEvent() {
     let pageIndex = decrePageIndex();
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
-    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+    renderPagingItems(sortedItems, getAndModifyAddCartBtn);
 
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
@@ -209,7 +209,7 @@ export function paginationBarRegisterEvent() {
     let pageIndex = increPageIndex();
     renderPageNumber(sortedItems.length);
     changePageIndex(pageIndex);
-    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+    renderPagingItems(sortedItems, getAndModifyAddCartBtn);
 
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
@@ -229,7 +229,7 @@ export function headerPagingBtnRegisterEvent() {
     decrePageIndex();
     let sortedItems = getSortedProducts();
     renderPageNumber(sortedItems.length);
-    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+    renderPagingItems(sortedItems, getAndModifyAddCartBtn);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     // Duyệt dom number mới vừa đc render và đc addEvent
     const paginationNumberItems = [...$$(".pagination-number")];
@@ -246,7 +246,7 @@ export function headerPagingBtnRegisterEvent() {
     increPageIndex();
     let sortedItems = getSortedProducts();
     renderPageNumber(sortedItems.length);
-    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+    renderPagingItems(sortedItems, getAndModifyAddCartBtn);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     const paginationNumberItems = [...$$(".pagination-number")];
     paginationNumberItems.forEach((paginationNumberItem, index) => {

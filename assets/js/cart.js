@@ -64,13 +64,23 @@ export function renderCartItems(item, ...callbacks) {
 }
 
 //Button add cart
-export function registerEventsAddCartBtn() {
+export function getAndModifyAddCartBtn() {
+  let cartItems = getCartItems();
   const addCartButtons = [...$$(".app__product-cart-btn")];
   addCartButtons.forEach((addCartButton, index) => {
+    //Get Add Cart Btn and render by cartItems
+    cartItems.forEach((cartItem) => {
+      if (addCartButton.dataset.id == cartItem.id) {
+        addCartButton.innerText = "In cart";
+        addCartButton.classList.add("app__product-cart-btn--disabled");
+      }
+    });
     addCartButton.addEventListener("click", (e) => {
-      let id = addCartButton.dataset.id;
       //set value of CartNumb and render item added
+      let id = addCartButton.dataset.id;
       if (addCartButton.innerText == "Add to cart") {
+        addCartButton.innerText = "In cart";
+        addCartButton.classList.add("app__product-cart-btn--disabled");
         increaseCartNumb();
         let item = getCartItembyID(id);
         renderCartItems(
@@ -79,13 +89,12 @@ export function registerEventsAddCartBtn() {
           registerEventsChangeItemAmount
         );
       }
-      //css addCart button
-      if (addCartButton.innerText == "Add to cart") {
-        addCartButton.innerText = "In cart";
-        addCartButton.classList.add("app__product-cart-btn--disabled");
-      }
     });
   });
+}
+
+function getAddCartBtn(){
+
 }
 
 function registerEventsDelCartBtn() {
