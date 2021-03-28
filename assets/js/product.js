@@ -2,12 +2,11 @@ import {
   pageIndex,
   pageSize,
   renderPageNumber,
-  increPageIndex,
-  decrePageIndex,
   renderPaginationBar,
   changePageIndex,
   changePageTotal,
   paginationBarRegisterEvent,
+  headerPagingBtnRegisterEvent,
 } from "./pagination.js";
 import {
   getCartItems,
@@ -132,9 +131,10 @@ function start() {
     changePageTotal(sortedItems);
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+    headerPagingBtnRegisterEvent();
     renderPagingItems(sortedItems, registerEventsAddCartBtn);
     renderCartItems();
-    registerEvents();
+    registerEventsFilterBtn();
   });
 }
 start();
@@ -428,7 +428,7 @@ function defaultCatefilter() {
 }
 
 ///Events
-function registerEvents() {
+function registerEventsFilterBtn() {
   //Price event
   const inputDefaultLabel = $(".app__input-lable").innerHTML;
   const inputDefaultColor = "var(--text-color)";
@@ -633,38 +633,6 @@ function registerEvents() {
       $(
         ".app__price-default"
       ).innerHTML += `<i class="app__input-item-icon bi bi-check"></i>`;
-    });
-  });
-
-  ///Change Page event
-  //Button left header
-  $(".app__pre-page").addEventListener("click", (e) => {
-    let pageIndex = decrePageIndex();
-    renderPageNumber(sortedItems.length);
-    renderPagingItems(sortedItems, registerEventsAddCartBtn);
-
-    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-    // Duyệt dom number mới vừa đc render và đc addEvent
-    const paginationNumberItems = [...$$(".pagination-number")];
-    paginationNumberItems.forEach((paginationNumberItem, index) => {
-      paginationNumberItem.classList.remove("pagination-number--active");
-      if (paginationNumberItem.value === pageIndex)
-        paginationNumberItem.classList.add("pagination-number--active");
-    });
-  });
-
-  //Button right header
-  $(".app__next-page").addEventListener("click", (e) => {
-    let pageIndex = increPageIndex();
-    renderPageNumber(sortedItems.length);
-    renderPagingItems(sortedItems, registerEventsAddCartBtn);
-
-    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
-    const paginationNumberItems = [...$$(".pagination-number")];
-    paginationNumberItems.forEach((paginationNumberItem, index) => {
-      paginationNumberItem.classList.remove("pagination-number--active");
-      if (paginationNumberItem.value === pageIndex)
-        paginationNumberItem.classList.add("pagination-number--active");
     });
   });
 }

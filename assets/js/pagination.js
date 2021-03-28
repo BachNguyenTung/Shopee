@@ -220,3 +220,39 @@ export function paginationBarRegisterEvent() {
     });
   });
 }
+
+//Pagination header
+export function headerPagingBtnRegisterEvent() {
+  //Button left header
+  $(".app__pre-page").addEventListener("click", (e) => {
+    // let pageIndex = decrePageIndex();
+    decrePageIndex();
+    let sortedItems = getSortedProducts();
+    renderPageNumber(sortedItems.length);
+    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+    // Duyệt dom number mới vừa đc render và đc addEvent
+    const paginationNumberItems = [...$$(".pagination-number")];
+    paginationNumberItems.forEach((paginationNumberItem, index) => {
+      paginationNumberItem.classList.remove("pagination-number--active");
+      if (paginationNumberItem.value === pageIndex)
+        paginationNumberItem.classList.add("pagination-number--active");
+    });
+  });
+
+  //Button right header
+  $(".app__next-page").addEventListener("click", (e) => {
+    // let pageIndex = increPageIndex();
+    increPageIndex();
+    let sortedItems = getSortedProducts();
+    renderPageNumber(sortedItems.length);
+    renderPagingItems(sortedItems, registerEventsAddCartBtn);
+    renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
+    const paginationNumberItems = [...$$(".pagination-number")];
+    paginationNumberItems.forEach((paginationNumberItem, index) => {
+      paginationNumberItem.classList.remove("pagination-number--active");
+      if (paginationNumberItem.value === pageIndex)
+        paginationNumberItem.classList.add("pagination-number--active");
+    });
+  });
+}

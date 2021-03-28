@@ -25,7 +25,7 @@ function getCartItembyID(id) {
 }
 
 //render cartItems in cart
-export function renderCartItems(item, ...callback) {
+export function renderCartItems(item, ...callbacks) {
   if (cartNumb == 0) {
     $(".header__cart-list").classList.add("header__cart-list--empty");
   } else {
@@ -57,9 +57,9 @@ export function renderCartItems(item, ...callback) {
             </div>
         `;
     $(".header__cart-list-item").innerHTML += html;
-    const list = callback;
-    list[0]();
-    list[1]();
+    callbacks.forEach((callback) => {
+      callback();
+    });
   }
 }
 
