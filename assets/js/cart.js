@@ -16,7 +16,7 @@ export function getCartNumb() {
 }
 
 export function setCartItems(items) {
-  if (items.length > 0) {
+  if (items != null) {
     cartItems = items;
   }
 }
@@ -38,8 +38,7 @@ function addToCartItembyID(id) {
   let tempItems = getTempItems();
   let item = tempItems.find((tempItem) => tempItem.id == id);
   item = { ...item, amount: 1 };
-  cartItems.push(item);
-  console.log(cartItems);
+  cartItems = [...cartItems, item];
 }
 
 //render cart numbers
@@ -74,9 +73,9 @@ export function renderCartItems(items, ...callbacks) {
           <span>x</span>
         </a>
         <div class="header__cart-amount">
-        <i class="header__cart-incr bi bi-caret-up-fill"></i>
-        <span class="header__cart-amount-numb">1</span>
-        <i class="header__cart-decr bi bi-caret-down-fill"></i>
+        <i class="header__cart-incr bi bi-caret-up-fill" data-id=${item.id}></i>
+        <span class="header__cart-amount-item" data-id=${item.id}>${item.amount}</span>
+        <i class="header__cart-decr bi bi-caret-down-fill" data-id=${item.id}></i>
         </div>
         <span class="header__cart-delBtn" data-id=${item.id}>Xóa</span>
       </div>
@@ -126,8 +125,6 @@ export function getAndModifyAddCartBtn() {
   });
 }
 
-function getAddCartBtn() {}
-
 export function registerEventsDelCartBtn() {
   const delCartItemBtns = [...$$(".header__cart-delBtn")];
   delCartItemBtns.forEach((delCartItemsBtn) => {
@@ -163,23 +160,34 @@ export function registerEventsChangeItemAmount() {
   const decrBtns = [...$$(".header__cart-decr")];
   incrBtns.forEach((incrBtn) => {
     incrBtn.addEventListener("click", () => {
-      console.log(incrBtn.nextElementSibling);
       //TODO:
-      //find new item by id in tempItem
+      //find new item by id in cartItems
+      let id = incrBtn.dataset.id;
+      let item = cartItems.find((item) => item.id == id);
       //set amount prop of new item
-      //filter that item by id in cartItem
-      //Add new item in cartItem
+      item.amount++;
       //Save cartItem in storage
-      incrBtn.nextElementSibling.innerText++;
+      saveCartItemsToStorage(cartItems);
+      //render item amount
+      incrBtn.nextElementSibling.innerText = item.amount;
+      setCartNumb();
+      renderCartNumbers(cartNumb);
     });
   });
   decrBtns.forEach((decrBtn) => {
     decrBtn.addEventListener("click", () => {
-      if (decrBtn.previousElementSibling.innerHTML <= 1) {
-        decrBtn.previousElementSibling.innerText = 1;
-      } else {
-        decrBtn.previousElementSibling.innerHTML--;
-      }
+        //TODO:
+        //find new item by id in cartItems
+        let id = decrBtn.dataset.id;
+        let item = cartItems.find((item) => item.id == id);
+        //set amount prop of new item
+        item.amount <= 1 ? (item.amount = 1) : item.amount--;
+        //Save cartItem in storage
+        saveCartItemsToStorage(cartItems);
+        //render item amount
+        decrBtn.previousElementSibling.innerText = item.amount;
+        setCartNumb();
+        renderCartNumbers(cartNumb);
     });
   });
 }
