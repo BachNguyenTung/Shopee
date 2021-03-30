@@ -9,8 +9,16 @@ import {
   headerPagingBtnRegisterEvent,
 } from "./pagination.js";
 import {
+  getCartItemsFromStorage,
+  getCartItems,
+  setCartItems,
+  setCartNumb,
   getAndModifyAddCartBtn,
+  getCartNumb,
+  renderCartNumbers,
   renderCartItems,
+  registerEventsDelCartBtn,
+  registerEventsChangeItemAmount,
 } from "./cart.js";
 // import { items } from "./data.js"; //local data
 const itemsApi = "http://localhost:3000/items";
@@ -131,8 +139,15 @@ function start() {
     renderPageNumber(sortedItems.length);
     renderPaginationBar(sortedItems.length, paginationBarRegisterEvent);
     headerPagingBtnRegisterEvent();
+    setCartItems(getCartItemsFromStorage());
+    setCartNumb();
     renderPagingItems(sortedItems, getAndModifyAddCartBtn);
-    renderCartItems();
+    renderCartItems(
+      getCartItems(),
+      registerEventsDelCartBtn,
+      registerEventsChangeItemAmount
+    );
+    renderCartNumbers(getCartNumb());
     registerEventsFilterBtn();
   });
 }
