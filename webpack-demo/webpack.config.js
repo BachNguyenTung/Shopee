@@ -1,6 +1,6 @@
 var path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   // ...
   stats: {
@@ -9,6 +9,7 @@ module.exports = {
   mode: "development",
   entry: "./src/index.js",
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "Output HTML",
       template: "./src/index.html",
