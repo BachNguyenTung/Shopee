@@ -1,6 +1,6 @@
 import { getTempItems } from "./product.js";
 
-export let cartNumb = 0;
+let cartNumb = 0;
 let cartItems = []; // luu cart items vao local storage
 
 export function setCartNumb() {

@@ -1,3 +1,5 @@
+// Sử dụng class thay cho function
+
 //cart
 
 let cart = [];
